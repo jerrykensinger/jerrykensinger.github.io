@@ -987,3 +987,27 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .article-aside,
   .support-side { position: static; }
 }
+
+
+/* Ko-fi support links */
+.support-action-link {
+  color: inherit;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.support-action-link:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  background: var(--accent-soft);
+}
+.support-action-link .text-link {
+  display: inline-block;
+  margin-top: 9px;
+}
+.support-secondary {
+  margin-top: 10px;
+}
+.article-support-link {
+  display: block;
+  margin-top: 8px;
+}
