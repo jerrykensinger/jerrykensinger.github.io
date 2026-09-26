@@ -8,7 +8,9 @@ Personal site for Jerry Kensinger, hosted with GitHub Pages.
 - Career
 - Projects
 - Tech
+- Blog
 - Contact
+- Support
 - Custom 404 page
 
 ## Features

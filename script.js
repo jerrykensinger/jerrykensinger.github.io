@@ -20,10 +20,27 @@
 
   syncThemeLabel();
 
+  const syncCommentTheme = () => {
+    const message = {
+      type: 'set-theme',
+      theme: root.dataset.theme === 'dark' ? 'github-dark' : 'github-light'
+    };
+    document.querySelectorAll('iframe.utterances-frame').forEach(frame => {
+      frame.contentWindow?.postMessage(message, 'https://utteranc.es');
+    });
+  };
+
   themeButton?.addEventListener('click', () => {
     root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
     localStorage.setItem('jk-theme', root.dataset.theme);
     syncThemeLabel();
+    syncCommentTheme();
+  });
+
+  window.addEventListener('message', (event) => {
+    if (event.origin === 'https://utteranc.es') {
+      setTimeout(syncCommentTheme, 150);
+    }
   });
 
   menuButton?.addEventListener('click', () => {
