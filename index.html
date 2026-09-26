@@ -2,56 +2,174 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Jerry Kensinger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Shared styling -->
+  <title>Jerry Kensinger | Technology, Strategic Accounts & Automation</title>
+  <meta name="description" content="Jerry Kensinger's personal site covering strategic accounts, technology, AI, automation, and hands-on projects.">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jerry Kensinger | Technology, Strategic Accounts & Automation">
+  <meta property="og:description" content="Jerry Kensinger's personal site covering strategic accounts, technology, AI, automation, and hands-on projects.">
+  <meta property="og:url" content="https://jerrykensinger.com/">
+  <meta property="og:image" content="https://jerrykensinger.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://jerrykensinger.com/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
   <link rel="stylesheet" href="style.css">
-
-<!-- Google tag (gtag.js) -->
+  
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EJ8CPRPSRB"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-EJ8CPRPSRB');
 </script>
-
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<header>
-  <h1>Jerry Kensinger</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="index.html" aria-label="Jerry Kensinger home">
+        <span class="brand-mark">JK</span>
+        <span class="brand-name">Jerry Kensinger</span>
+      </a>
 
-<main>
-  <p>
-    Strategic Account professional focused on technology,
-    partnerships, and long-term customer success.
-  </p>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span></span><span></span><span></span>
+      </button>
 
-  <p>
-    <strong>Current role:</strong><br>
-    <a href="https://www.dandh.com" target="_blank" rel="noopener">
-      D&H Distributing
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="index.html" class="nav-link active" aria-current="page">Home</a>
+<a href="about.html" class="nav-link">About</a>
+<a href="career.html" class="nav-link">Career</a>
+<a href="projects.html" class="nav-link">Projects</a>
+<a href="tech.html" class="nav-link">Tech</a>
+<a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+        <span class="theme-icon" aria-hidden="true">◐</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    
+<section class="hero section">
+  <div class="hero-content">
+    <p class="eyebrow">Technology • Strategic Accounts • AI &amp; Automation</p>
+    <h1>Making technology and everyday workflows simpler, smarter, and more effective.</h1>
+    <p class="hero-copy">
+      I’m Jerry Kensinger, a Strategic Account Representative at D&amp;H Distributing.
+      I work at the intersection of technology, partner relationships, business growth,
+      and practical automation.
+    </p>
+    <div class="hero-actions">
+      <a class="button primary" href="projects.html">View projects</a>
+      <a class="button secondary" href="contact.html">Connect with me</a>
+    </div>
+  </div>
+  <div class="hero-card" aria-label="Jerry Kensinger profile card">
+    <div class="profile-orb">JK</div>
+    <p class="profile-kicker">Current focus</p>
+    <h2>Technology that creates leverage.</h2>
+    <p>Strategic accounts, IT solutions, AI tools, workflow automation, and hands-on tech experimentation.</p>
+    <div class="mini-tags">
+      <span>Strategic Accounts</span>
+      <span>IT Distribution</span>
+      <span>Automation</span>
+      <span>AI</span>
+    </div>
+  </div>
+</section>
+
+<section class="section compact">
+  <div class="section-heading">
+    <p class="eyebrow">Explore</p>
+    <h2>A personal hub for the work and technology I enjoy.</h2>
+  </div>
+
+  <div class="card-grid three">
+    <a class="feature-card" href="career.html">
+      <span class="card-icon">↗</span>
+      <h3>Career</h3>
+      <p>My work in strategic accounts, IT distribution, partner relationships, and business development.</p>
+      <span class="text-link">Explore career →</span>
     </a>
-  </p>
+    <a class="feature-card" href="projects.html">
+      <span class="card-icon">⌘</span>
+      <h3>Projects</h3>
+      <p>Automation experiments, Apps Script projects, sales workflow ideas, and practical systems I’ve built.</p>
+      <span class="text-link">See projects →</span>
+    </a>
+    <a class="feature-card" href="tech.html">
+      <span class="card-icon">◈</span>
+      <h3>Tech</h3>
+      <p>The devices, platforms, workstation ideas, and tools I like to test and learn from.</p>
+      <span class="text-link">Visit the tech lab →</span>
+    </a>
+  </div>
+</section>
 
-  <p>
-    <strong>Connect:</strong><br>
-    <a href="contact.html">Email & LinkedIn</a>
-  </p>
-</main>
+<section class="section">
+  <div class="spotlight">
+    <div>
+      <p class="eyebrow">Featured project</p>
+      <h2>NFL Picks Automation</h2>
+      <p>
+        A Google Forms, Sheets, and Apps Script system that handles weekly picks,
+        reminders, submission tracking, game breakdowns, standings, and week-to-week workflow.
+      </p>
+      <a class="button secondary" href="projects.html#nfl-picks">See how it works</a>
+    </div>
+    <div class="code-window" aria-hidden="true">
+      <div class="code-window-bar"><i></i><i></i><i></i></div>
+      <pre><code>function weeklyWorkflow() {
+  collectPicks();
+  sendReminders();
+  lockCompletedGames();
+  updateStandings();
+  publishResults();
+}</code></pre>
+    </div>
+  </div>
+</section>
 
-<footer>
-  © 2025 Jerry Kensinger
-</footer>
+<section class="section compact">
+  <div class="cta-panel">
+    <div>
+      <p class="eyebrow">Always experimenting</p>
+      <h2>AI is most useful when it turns into something practical.</h2>
+      <p>I’m especially interested in combining AI with spreadsheets, scripting, and everyday business processes.</p>
+    </div>
+    <a class="button primary" href="about.html">More about me</a>
+  </div>
+</section>
 
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <strong>Jerry Kensinger</strong>
+        <p>Technology • Strategic Accounts • AI &amp; Automation</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:jerry@jerrykensinger.com">Email</a>
+        <a href="https://www.linkedin.com/in/jerrykensinger/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="jerry-kensinger.vcf">Save Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-current-year></span> Jerry Kensinger</span>
+      <span>Built on GitHub Pages</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

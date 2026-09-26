@@ -1,0 +1,8 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Jerry Kensinger
+N:Kensinger;Jerry;;;
+EMAIL;TYPE=INTERNET:jerry@jerrykensinger.com
+URL:https://jerrykensinger.com
+URL;TYPE=LinkedIn:https://www.linkedin.com/in/jerrykensinger/
+END:VCARD

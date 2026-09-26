@@ -1,0 +1,15 @@
+{
+  "name": "Jerry Kensinger",
+  "short_name": "Jerry Kensinger",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
