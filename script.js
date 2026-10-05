@@ -4,6 +4,14 @@
   const menuButton = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
 
+  if (nav && !nav.querySelector('a[href="nfl.html"]')) {
+    const leagueLink = document.createElement('a');
+    leagueLink.href = 'nfl.html';
+    leagueLink.className = 'nav-link';
+    leagueLink.textContent = 'NFL League';
+    nav.appendChild(leagueLink);
+  }
+
   const savedTheme = localStorage.getItem('jk-theme');
   const preferredDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const initialTheme = savedTheme || (preferredDark ? 'dark' : 'light');
