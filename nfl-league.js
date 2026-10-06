@@ -12,8 +12,8 @@
  *   - season standings rendered live from the league tracker's Season
  *     Standings tab (via the feed's season_standings tab)
  *
- * If the feed can't be reached, the published static snapshot in the HTML
- * stays in place and a note says so.
+ * If the feed can't be reached, show a clear error or keep the last
+ * successfully loaded data with its update time.
  */
 (() => {
   'use strict';
@@ -47,7 +47,7 @@
 
   async function gviz(sheet) {
     const url = `https://docs.google.com/spreadsheets/d/${FEED_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheet)}`;
-    const res = await fetch(url, { cache: 'no-store' });
+    const res = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(15000) });
     if (!res.ok) throw new Error('feed ' + res.status);
     const text = await res.text();
     const data = JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1));
@@ -69,7 +69,7 @@
     if (!iso) return '';
     const d = new Date(iso);
     if (isNaN(d)) return '';
-    return d.toLocaleString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+    return d.toLocaleString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET';
   }
 
   function renderMeta(meta) {
@@ -88,20 +88,26 @@
     if (weeklyTitle) weeklyTitle.textContent = `Week ${week} standings`;
     const gamesTitle = $('games-title');
     if (gamesTitle) gamesTitle.textContent = `Week ${week} game results`;
+    ['weekly', 'games'].forEach(id => {
+      const section = $(id);
+      section.querySelector('[role="region"]').setAttribute('aria-label', `Week ${week} ${id === 'weekly' ? 'standings' : 'game results'}`);
+      section.querySelector('caption').textContent = `Week ${week} ${id === 'weekly' ? 'standings' : 'game results'}`;
+    });
   }
 
   function renderCards(meta, weekly) {
     const scored = +meta.games_scored || 0;
     const c2 = $('card-week-leaders');
     if (c2) {
-      if (!scored) {
-        c2.querySelector('h2').textContent = 'Waiting on picks';
-        c2.querySelector('p').textContent = 'Standings unlock as games are fully picked and completed.';
+      c2.querySelector('span').textContent = `Week ${meta.week} leaders`;
+      if (!scored || !weekly.length) {
+        c2.querySelector('h2').textContent = 'Waiting for results';
+        c2.querySelector('p').textContent = 'Standings appear as games finish and picks are scored.';
       } else {
         const leaders = weekly.filter(p => +p.correct === Math.max(...weekly.map(q => +q.correct || 0)));
-        const most = Math.max(...weekly.map(q => +q.scored || 0));
         c2.querySelector('h2').textContent = leaders.map(p => p.player).join(' & ');
-        c2.querySelector('p').textContent = `${leaders[0].correct} correct each · ${(+meta.games_total || 0) - (+meta.games_final || 0)} game(s) remaining`;
+        const remaining = Math.max(0, (+meta.games_total || 0) - (+meta.games_final || 0));
+        c2.querySelector('p').textContent = `${leaders[0].correct} correct${leaders.length > 1 ? ' each' : ''} · ${remaining} game${remaining === 1 ? '' : 's'} remaining`;
       }
     }
     const c3 = $('card-pending');
@@ -157,7 +163,7 @@
     const labels = parsed.labels;
     const players = labels.filter(l => l.endsWith('_pick')).map(l => l.slice(0, -5));
     head.replaceChildren();
-    ['Game', 'Away', 'Score', 'Home', 'Score', 'Winner'].forEach(t => head.append(el('th', t, '')));
+    ['Game', 'Away', 'Score', 'Home', 'Score', 'Winner / kickoff'].forEach(t => { const th = el('th', t); th.scope = 'col'; head.append(th); });
     players.forEach(p => { const th = el('th', p); th.scope = 'col'; head.append(th); });
     body.replaceChildren();
     asObjects(parsed).forEach(g => {
@@ -211,7 +217,7 @@
       td.colSpan = 6;
       tr.append(td);
       body.append(tr);
-      if (sub) sub.textContent = 'Waiting on picks — no win/loss shown yet.';
+      if (sub) sub.textContent = fin ? 'Waiting for scored results — no win/loss shown yet.' : 'Waiting for game results — no win/loss shown yet.';
       if (banner) banner.replaceChildren();
       return;
     }
@@ -231,10 +237,10 @@
       tr.append(el('td', scored ? `${p.win_pct}%` : '—'));
       body.append(tr);
     });
-    if (sub) sub.textContent = total ? (fin === total ? `Final · all ${total} games scored. Equal records are tied.` : `In progress · counting ${scored} of ${total} games (fully picked & final). Equal records are tied.`) : '';
+    if (sub) sub.textContent = total ? (fin === total && scored === total ? `Final · all ${total} games scored. Equal records are tied.` : `In progress · counting ${scored} of ${total} games (fully picked & final). Equal records are tied.`) : '';
     if (banner) {
       banner.replaceChildren();
-      if (total && fin === total && sorted.length) {
+      if (total && fin === total && scored === total && sorted.length) {
         const top = +sorted[0].correct || 0;
         const winners = sorted.filter(p => (+p.correct || 0) === top).map(p => p.player);
         banner.append(el('strong', `Weekly winner${winners.length > 1 ? 's' : ''}: `));
@@ -259,7 +265,7 @@
       body.append(tr);
     });
     const sub = $('season-sub');
-    if (sub) sub.textContent = `Through Week ${meta.week} · live from the league tracker's season standings.`;
+    if (sub) sub.textContent = "Includes completed games · live from the league tracker's season standings.";
     const card = $('card-season-leader');
     if (card && sorted.length) {
       const top = sorted[0];
@@ -269,14 +275,21 @@
   }
 
   let lastSeen = '';
+  let lastMeta = null;
+  let refreshing = false;
   async function refresh() {
+    if (refreshing) return;
+    refreshing = true;
     try {
       const [metaP, subP, gamesP, recP, ssP] = await Promise.all([
         gviz('meta'), gviz('submission_status'), gviz('games'), gviz('weekly_records'), gviz('season_standings')
       ]);
       const meta = asObjects(metaP)[0] || {};
-      if (meta.generated_utc && meta.generated_utc === lastSeen) return;
-      lastSeen = meta.generated_utc || '';
+      if (!(+meta.week > 0) || !meta.generated_utc) throw new Error('Missing feed metadata');
+      if (lastMeta && meta.generated_utc === lastSeen) {
+        renderMeta(meta);
+        return;
+      }
       const sub = asObjects(subP), rec = asObjects(recP);
       renderMeta(meta);
       renderCards(meta, rec);
@@ -284,9 +297,32 @@
       renderSeason(asObjects(ssP), meta);
       renderGames(gamesP, meta);
       renderWeekly(rec, meta);
+      lastSeen = meta.generated_utc;
+      lastMeta = meta;
     } catch (err) {
       const upd = $('league-updated');
-      if (upd && !lastSeen) upd.textContent += ' · live data unavailable — showing published snapshot';
+      if (upd) upd.textContent = lastMeta
+        ? `Refresh unavailable · showing data updated ${lastMeta.generated_et || lastSeen} · retrying automatically`
+        : 'Live data unavailable · retrying automatically. Reload to try again now.';
+      if (!lastMeta) {
+        ['season-body', 'weekly-body', 'games-body', 'submission-body'].forEach(id => {
+          const body = $(id);
+          if (!body) return;
+          const tr = el('tr'), td = el('td', 'Live data unavailable. Please try again shortly.');
+          td.colSpan = id === 'submission-body' ? 3 : 6;
+          tr.append(td); body.replaceChildren(tr);
+        });
+        ['card-season-leader', 'card-week-leaders', 'card-pending'].forEach(id => {
+          const card = $(id);
+          if (card) { card.querySelector('h2').textContent = 'Unavailable'; card.querySelector('p').textContent = 'Retrying automatically.'; }
+        });
+        const summary = $('submission-summary');
+        if (summary) summary.textContent = 'Pick counts are temporarily unavailable.';
+        const badge = $('league-badge');
+        if (badge) badge.textContent = 'Results unavailable';
+      }
+    } finally {
+      refreshing = false;
     }
   }
 
