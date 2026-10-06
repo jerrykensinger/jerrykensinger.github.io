@@ -8,10 +8,10 @@
 .pick-cell{text-align:center}
 .pick-cell .pick-team{font-weight:700}
 .pick-cell .pick-mark{font-weight:700;margin-left:2px}
-.pick-correct{background:rgba(21,115,71,.08)}
-.pick-correct .pick-mark{color:#157347}
-.pick-incorrect{background:rgba(180,35,24,.07)}
-.pick-incorrect .pick-mark{color:#b42318}
+.pick-correct{background:#d9f2e3}
+.pick-correct .pick-team,.pick-correct .pick-mark{color:#0f6b3f;font-weight:700}
+.pick-incorrect{background:#fbe3e1}
+.pick-incorrect .pick-team,.pick-incorrect .pick-mark{color:#b42318;font-weight:700}
 .pick-none{color:var(--muted)}
 .kickoff{font-size:12px;color:var(--muted);white-space:nowrap}
 #weekly-winner{margin-top:14px;font-size:15px}
