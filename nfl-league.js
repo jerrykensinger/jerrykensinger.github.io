@@ -4,10 +4,11 @@
  * Google Sheet (refreshed every ~30 min from the private master workbook
  * + ESPN's official scoreboard API) and renders:
  *   - pick submission status (counts only)
- *   - game results: team picks stay hidden until every player has submitted
- *     for the week; once all picks are in they go public, with win/loss
- *     (green/red) updating per game as each game goes officially final
- *   - live weekly standings (+ weekly winner once every game is final)
+ *   - game results: each game's picks are revealed once every player has
+ *     picked that matchup (or after its kickoff); win/loss (green/red)
+ *     updates per game as each game goes officially final
+ *   - live weekly standings over fully-picked final games (+ weekly winner
+ *     once every game is final)
  *
  * If the feed can't be reached, the published static snapshot in the HTML
  * stays in place and a note says so.
@@ -78,7 +79,7 @@
     const upd = $('league-updated');
     if (upd) upd.textContent = `Live data · updated ${meta.generated_et || ''} · refreshes automatically`;
     const note = $('league-note');
-    if (note) note.textContent = 'This page updates automatically from the league tracker — pick counts, results, and standings refresh without republishing. Player nicknames are used throughout. Team picks stay hidden until every player has submitted for the week; once all picks are in they go public, and win/loss updates as each game goes final.';
+    if (note) note.textContent = 'This page updates automatically from the league tracker — pick counts, results, and standings refresh without republishing. Player nicknames are used throughout. A game\u2019s picks are revealed once every player has picked that matchup (or after its kickoff); win/loss then updates as each game goes final.';
     const jumpWeek = $('jump-weekly');
     if (jumpWeek) jumpWeek.textContent = `Week ${week}`;
     const weeklyTitle = $('weekly-title');
@@ -88,15 +89,15 @@
   }
 
   function renderCards(meta, weekly) {
-    const allIn = meta.all_picks_in === 'yes';
+    const scored = +meta.games_scored || 0;
     const c2 = $('card-week-leaders');
     if (c2) {
-      if (!allIn) {
+      if (!scored) {
         c2.querySelector('h2').textContent = 'Waiting on picks';
-        c2.querySelector('p').textContent = 'Standings unlock once every player has submitted.';
-      } else if (weekly.length) {
+        c2.querySelector('p').textContent = 'Standings unlock as games are fully picked and completed.';
+      } else {
         const leaders = weekly.filter(p => +p.correct === Math.max(...weekly.map(q => +q.correct || 0)));
-        const scored = Math.max(...weekly.map(q => +q.scored || 0));
+        const most = Math.max(...weekly.map(q => +q.scored || 0));
         c2.querySelector('h2').textContent = leaders.map(p => p.player).join(' & ');
         c2.querySelector('p').textContent = `${leaders[0].correct} correct each · ${(+meta.games_total || 0) - (+meta.games_final || 0)} game(s) remaining`;
       }
@@ -151,7 +152,6 @@
     const body = $('games-body');
     const head = $('games-head');
     if (!body || !head) return;
-    const allIn = meta.all_picks_in === 'yes';
     const labels = parsed.labels;
     const players = labels.filter(l => l.endsWith('_pick')).map(l => l.slice(0, -5));
     head.replaceChildren();
@@ -170,13 +170,19 @@
       const winTd = el('td');
       if (final) winTd.textContent = g.winner;
       else if (live) winTd.append(el('span', 'LIVE', 'status-pill live'));
-      else if (g.state === 'scheduled' && g.kickoff_et) winTd.append(el('span', fmtKickoff(g.kickoff_et), 'kickoff'));
+      else if (g.state === 'scheduled' && g.kickoff_et) {
+        winTd.append(el('span', fmtKickoff(g.kickoff_et), 'kickoff'));
+        winTd.append(el('br'));
+        const nPicked = +g.n_picked || 0;
+        winTd.append(el('span', nPicked >= players.length ? 'All picks in' : `${nPicked} of ${players.length} picked`,
+          'status-pill ' + (nPicked >= players.length ? 'complete' : 'togo')));
+      }
       else winTd.textContent = '–';
       tr.append(winTd);
+      // The feed blanks pick cells for games that aren't revealed yet, so
+      // each game's picks appear independently as that matchup fills up.
       players.forEach(p => {
-        // Picks are public once every player has submitted; before that every
-        // cell stays hidden. Win/loss highlighting appears per game as it goes final.
-        tr.append(allIn ? playerCell(p, g[`${p}_pick`], g[`${p}_result`]) : el('td', '–', 'pick-cell pick-none'));
+        tr.append(playerCell(p, g[`${p}_pick`], g[`${p}_result`]));
       });
       body.append(tr);
     });
@@ -184,9 +190,7 @@
     if (sub) {
       const fin = +meta.games_final || 0, total = +meta.games_total || 0;
       sub.textContent = total
-        ? (allIn
-            ? `${fin} of ${total} games officially final. ✓ = correct pick, ✗ = incorrect.`
-            : `Team picks unlock once all ${players.length} players have submitted. ${fin} of ${total} games officially final.`)
+        ? `${fin} of ${total} games officially final. A game's picks are revealed once every player has picked that matchup (or after kickoff). ✓ = correct pick, ✗ = incorrect.`
         : '';
     }
   }
@@ -197,11 +201,11 @@
     const sub = $('weekly-sub');
     const banner = $('weekly-winner');
     const total = +meta.games_total || 0, fin = +meta.games_final || 0;
-    const allIn = meta.all_picks_in === 'yes';
+    const scored = +meta.games_scored || 0;
     body.replaceChildren();
-    if (!allIn) {
+    if (!scored) {
       const tr = el('tr');
-      const td = el('td', 'Standings unlock once every player has submitted for the week.');
+      const td = el('td', 'No fully-picked final games yet — standings appear as each matchup fills up and completes.');
       td.colSpan = 6;
       tr.append(td);
       body.append(tr);
@@ -225,7 +229,7 @@
       tr.append(el('td', scored ? `${p.win_pct}%` : '—'));
       body.append(tr);
     });
-    if (sub) sub.textContent = total ? (fin === total ? `Final · all ${total} games scored. Equal records are tied.` : `In progress · ${fin} of ${total} games scored. Equal records are tied.`) : '';
+    if (sub) sub.textContent = total ? (fin === total ? `Final · all ${total} games scored. Equal records are tied.` : `In progress · counting ${scored} of ${total} games (fully picked & final). Equal records are tied.`) : '';
     if (banner) {
       banner.replaceChildren();
       if (total && fin === total && sorted.length) {

@@ -5,6 +5,7 @@
 .status-pill.remaining{background:#fff4e0;color:#9a6200}
 .status-pill.not-started{background:var(--accent-soft);color:var(--muted)}
 .status-pill.live{background:#fde8e8;color:#b42318}
+.status-pill.togo{background:#fff4e0;color:#9a6200}
 .pick-cell{text-align:center}
 .pick-cell .pick-team{font-weight:700}
 .pick-cell .pick-mark{font-weight:700;margin-left:2px}
