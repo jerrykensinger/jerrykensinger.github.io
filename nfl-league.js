@@ -9,6 +9,8 @@
  *     updates per game as each game goes officially final
  *   - live weekly standings over fully-picked final games (+ weekly winner
  *     once every game is final)
+ *   - season standings rendered live from the league tracker's Season
+ *     Standings tab (via the feed's season_standings tab)
  *
  * If the feed can't be reached, the published static snapshot in the HTML
  * stays in place and a note says so.
@@ -241,11 +243,36 @@
     }
   }
 
+  function renderSeason(rows, meta) {
+    const body = $('season-body');
+    if (!body) return;
+    const sorted = [...rows].sort((a, b) => (+a.rank || 99) - (+b.rank || 99));
+    body.replaceChildren();
+    sorted.forEach(p => {
+      const tr = el('tr');
+      tr.append(el('td', p.rank));
+      const th = el('th', p.player); th.scope = 'row'; tr.append(th);
+      tr.append(el('td', p.correct));
+      tr.append(el('td', p.wrong));
+      tr.append(el('td', `${p.win_pct}%`));
+      tr.append(el('td', p.weekly_wins));
+      body.append(tr);
+    });
+    const sub = $('season-sub');
+    if (sub) sub.textContent = `Through Week ${meta.week} · live from the league tracker's season standings.`;
+    const card = $('card-season-leader');
+    if (card && sorted.length) {
+      const top = sorted[0];
+      card.querySelector('h2').textContent = top.player;
+      card.querySelector('p').textContent = `${top.correct} correct · ${top.wrong} wrong · ${top.win_pct}%`;
+    }
+  }
+
   let lastSeen = '';
   async function refresh() {
     try {
-      const [metaP, subP, gamesP, recP] = await Promise.all([
-        gviz('meta'), gviz('submission_status'), gviz('games'), gviz('weekly_records')
+      const [metaP, subP, gamesP, recP, ssP] = await Promise.all([
+        gviz('meta'), gviz('submission_status'), gviz('games'), gviz('weekly_records'), gviz('season_standings')
       ]);
       const meta = asObjects(metaP)[0] || {};
       if (meta.generated_utc && meta.generated_utc === lastSeen) return;
@@ -254,6 +281,7 @@
       renderMeta(meta);
       renderCards(meta, rec);
       renderSubmission(sub);
+      renderSeason(asObjects(ssP), meta);
       renderGames(gamesP, meta);
       renderWeekly(rec, meta);
     } catch (err) {
