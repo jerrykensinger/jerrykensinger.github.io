@@ -4,8 +4,8 @@
 const API='https://snap26-jerry.jkensing.chatgpt.site';
 const app=document.querySelector('#app'),err=document.querySelector('#error');let game=null,session=null,busy=false,last='',blob=null,polling=false;const invite=new URLSearchParams(location.search).get('game')?.toUpperCase();const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function error(e){err.textContent=e.message||e;err.classList.remove('hidden')}function clearError(){err.classList.add('hidden')}
-function credentials(){try{return JSON.parse(localStorage.getItem('snap26.sessions')||'{}')}catch{return {}}}
-function remember(code,token){const all=credentials();all[code]=token;localStorage.setItem('snap26.sessions',JSON.stringify(all));localStorage.setItem('snap26.last',code);session={code,token};history.replaceState(null,'','?game='+code)}
+function credentials(){try{const all=JSON.parse(localStorage.getItem('snap26.sessions')||'{}');if(all['1EAC984CBF']&&!all.KARLEE)all.KARLEE=all['1EAC984CBF'];return all}catch{return {}}}
+function remember(code,token){code=code.toUpperCase();const all=credentials();all[code]=token;localStorage.setItem('snap26.sessions',JSON.stringify(all));localStorage.setItem('snap26.last',code);session={code,token};history.replaceState(null,'','?game='+code)}
 async function api(path,options={}){const headers={...(session?{Authorization:'Bearer '+session.token}:{}),...(options.headers||{})};const r=await fetch(API+path,{...options,headers});const data=await r.json();if(!r.ok)throw new Error(data.error||'Game service unavailable. Try again.');return data}
 function image(key){return API+'/api/photo?'+new URLSearchParams({code:session.code,token:session.token,key})}
 function updateCountdown(){const el=document.querySelector('#countdown');if(!el||!game?.deadline)return;const left=Math.max(0,game.deadline-Date.now());const mins=Math.ceil(left/60000);el.textContent=left>0?Math.floor(mins/60)+'h '+(mins%60)+'m remaining':'Submissions closed';if(left===0&&!game.submissionsClosed)refresh();}
