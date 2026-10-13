@@ -1011,3 +1011,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
   display: block;
   margin-top: 8px;
 }
+
+/* Repurposed Lenovo home-server project */
+.server-visual { gap: 0; }
+.server-visual > strong { font-size: clamp(28px, 3vw, 36px); margin-bottom: 20px; }
+.server-services { display: grid; gap: 10px; }
+.server-services > div {
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05);
+  border-radius: 11px; padding: 12px 14px;
+}
+.server-services > div > span:nth-child(2) { font-weight: 650; flex: 1; }
+.server-services > div > small { margin: 0; font-size: 12px; color: #86efac; }
+.server-light { flex: 0 0 9px; height: 9px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 4px rgba(74,222,128,.12); }
+.server-visual > small { display: block; font-size: 12px; }
