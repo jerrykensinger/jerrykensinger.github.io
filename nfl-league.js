@@ -176,7 +176,10 @@
       tr.append(el('td', g.home));
       tr.append(el('td', final || live ? g.home_score : '–'));
       const winTd = el('td');
-      if (final) winTd.textContent = g.winner;
+      if (final) {
+        const tied = g.away_score !== '' && g.home_score !== '' && +g.away_score === +g.home_score;
+        winTd.textContent = g.winner || (tied ? 'TIE' : 'Final');
+      }
       else if (live) winTd.append(el('span', 'LIVE', 'status-pill live'));
       else if (g.state === 'scheduled' && g.kickoff_et) {
         winTd.append(el('span', fmtKickoff(g.kickoff_et), 'kickoff'));
@@ -237,10 +240,10 @@
       tr.append(el('td', scored ? `${p.win_pct}%` : '—'));
       body.append(tr);
     });
-    if (sub) sub.textContent = total ? (fin === total && scored === total ? `Final · all ${total} games scored. Equal records are tied.` : `In progress · counting ${scored} of ${total} games (fully picked & final). Equal records are tied.`) : '';
+    if (sub) sub.textContent = total ? (fin === total ? `Final · all ${total} games final. NFL ties are treated as pushes. Equal records are tied.` : `In progress · counting ${scored} of ${total} games (fully picked & final). Equal records are tied.`) : '';
     if (banner) {
       banner.replaceChildren();
-      if (total && fin === total && scored === total && sorted.length) {
+      if (total && fin === total && sorted.length) {
         const top = +sorted[0].correct || 0;
         const winners = sorted.filter(p => (+p.correct || 0) === top).map(p => p.player);
         banner.append(el('strong', `Weekly winner${winners.length > 1 ? 's' : ''}: `));
@@ -274,6 +277,83 @@
     }
   }
 
+
+  function renderCompletedHistory(parsed, meta) {
+    const details = $('completed-weekly');
+    const summary = $('completed-weekly-summary');
+    const head = $('completed-weekly-head');
+    const body = $('completed-weekly-body');
+    const note = $('completed-weekly-note');
+    if (!summary || !head || !body) return;
+
+    const currentWeek = +meta.week || 0;
+    const total = +meta.games_total || 0;
+    const fin = +meta.games_final || 0;
+    const completedThrough = Math.max(0, currentWeek - ((total && fin === total) ? 0 : 1));
+
+    if (details) details.hidden = completedThrough < 1;
+    if (completedThrough < 1) return;
+
+    summary.textContent = `Completed weekly records · Weeks 1–${completedThrough}`;
+
+    const labels = parsed && Array.isArray(parsed.labels) ? parsed.labels : [];
+    const rows = parsed ? asObjects(parsed) : [];
+
+    const weekFields = labels
+      .filter(label => /^W\d+$/.test(label))
+      .map(label => ({ field: label, week: +label.slice(1) }))
+      .filter(item => item.week <= completedThrough)
+      .sort((a, b) => a.week - b.week);
+
+    head.replaceChildren();
+    ['Rank', 'Player'].forEach(text => {
+      const th = el('th', text);
+      th.scope = 'col';
+      head.append(th);
+    });
+    weekFields.forEach(item => {
+      const th = el('th', `Week ${item.week}`);
+      th.scope = 'col';
+      head.append(th);
+    });
+
+    body.replaceChildren();
+
+    if (!weekFields.length || !rows.length) {
+      const tr = el('tr');
+      const td = el('td', 'Completed weekly records are syncing. Please check again shortly.');
+      td.colSpan = Math.max(2, 2 + weekFields.length);
+      tr.append(td);
+      body.append(tr);
+      if (note) note.textContent = 'This section updates automatically from the league tracker.';
+      return;
+    }
+
+    const sorted = [...rows]
+      .filter(r => r.Player || r.player)
+      .sort((a, b) => (+a.Rank || +a.rank || 99) - (+b.Rank || +b.rank || 99));
+
+    sorted.forEach(r => {
+      const tr = el('tr');
+      tr.append(el('td', r.Rank || r.rank || ''));
+      const th = el('th', r.Player || r.player || '');
+      th.scope = 'row';
+      tr.append(th);
+
+      weekFields.forEach(item => {
+        const value = String(r[item.field] || '').replace(/\*$/, '');
+        tr.append(el('td', value || '—'));
+      });
+
+      body.append(tr);
+    });
+
+    if (note) {
+      note.textContent =
+        `Automatically updated through Week ${completedThrough}. Records show correct–wrong picks; NFL ties are pushes and are excluded from the correct–wrong record.`;
+    }
+  }
+
   let lastSeen = '';
   let lastMeta = null;
   let refreshing = false;
@@ -281,8 +361,13 @@
     if (refreshing) return;
     refreshing = true;
     try {
-      const [metaP, subP, gamesP, recP, ssP] = await Promise.all([
-        gviz('meta'), gviz('submission_status'), gviz('games'), gviz('weekly_records'), gviz('season_standings')
+      const [metaP, subP, gamesP, recP, ssP, historyP] = await Promise.all([
+        gviz('meta'),
+        gviz('submission_status'),
+        gviz('games'),
+        gviz('weekly_records'),
+        gviz('season_standings'),
+        gviz('weekly_history').catch(() => null)
       ]);
       const meta = asObjects(metaP)[0] || {};
       if (!(+meta.week > 0) || !meta.generated_utc) throw new Error('Missing feed metadata');
@@ -297,6 +382,7 @@
       renderSeason(asObjects(ssP), meta);
       renderGames(gamesP, meta);
       renderWeekly(rec, meta);
+      renderCompletedHistory(historyP, meta);
       lastSeen = meta.generated_utc;
       lastMeta = meta;
     } catch (err) {
