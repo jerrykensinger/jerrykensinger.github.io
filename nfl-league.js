@@ -65,6 +65,15 @@
     });
   }
 
+  async function weeklyHistory() {
+    const res = await fetch('nfl-weekly-history.json?ts=' + Date.now(), {
+      cache: 'no-store',
+      signal: AbortSignal.timeout(15000)
+    });
+    if (!res.ok) throw new Error('weekly history ' + res.status);
+    return res.json();
+  }
+
   function fmtKickoff(iso) {
     if (!iso) return '';
     const d = new Date(iso);
@@ -278,7 +287,7 @@
   }
 
 
-  function renderCompletedHistory(parsed, meta) {
+  function renderCompletedHistory(history, meta, seasonRows) {
     const details = $('completed-weekly');
     const summary = $('completed-weekly-summary');
     const head = $('completed-weekly-head');
@@ -286,24 +295,15 @@
     const note = $('completed-weekly-note');
     if (!summary || !head || !body) return;
 
-    const currentWeek = +meta.week || 0;
-    const total = +meta.games_total || 0;
-    const fin = +meta.games_final || 0;
-    const completedThrough = Math.max(0, currentWeek - ((total && fin === total) ? 0 : 1));
+    const weeks = history && Array.isArray(history.weeks)
+      ? history.weeks.slice().sort((a, b) => (+a.week || 0) - (+b.week || 0))
+      : [];
 
-    if (details) details.hidden = completedThrough < 1;
-    if (completedThrough < 1) return;
+    if (details) details.hidden = weeks.length === 0;
+    if (!weeks.length) return;
 
-    summary.textContent = `Completed weekly records · Weeks 1–${completedThrough}`;
-
-    const labels = parsed && Array.isArray(parsed.labels) ? parsed.labels : [];
-    const rows = parsed ? asObjects(parsed) : [];
-
-    const weekFields = labels
-      .filter(label => /^W\d+$/.test(label))
-      .map(label => ({ field: label, week: +label.slice(1) }))
-      .filter(item => item.week <= completedThrough)
-      .sort((a, b) => a.week - b.week);
+    const lastWeek = +weeks[weeks.length - 1].week || 0;
+    summary.textContent = `Completed weekly records · Weeks 1–${lastWeek}`;
 
     head.replaceChildren();
     ['Rank', 'Player'].forEach(text => {
@@ -311,46 +311,46 @@
       th.scope = 'col';
       head.append(th);
     });
-    weekFields.forEach(item => {
-      const th = el('th', `Week ${item.week}`);
+    weeks.forEach(w => {
+      const th = el('th', `Week ${w.week}`);
       th.scope = 'col';
       head.append(th);
     });
 
+    const currentRank = new Map(
+      (seasonRows || []).map(r => [String(r.player || ''), +r.rank || 99])
+    );
+
+    const players = new Set();
+    weeks.forEach(w => Object.keys(w.records || {}).forEach(p => players.add(p)));
+    const orderedPlayers = [...players].sort((a, b) =>
+      (currentRank.get(a) || 99) - (currentRank.get(b) || 99) || a.localeCompare(b)
+    );
+
     body.replaceChildren();
-
-    if (!weekFields.length || !rows.length) {
+    orderedPlayers.forEach(player => {
       const tr = el('tr');
-      const td = el('td', 'Completed weekly records are syncing. Please check again shortly.');
-      td.colSpan = Math.max(2, 2 + weekFields.length);
-      tr.append(td);
-      body.append(tr);
-      if (note) note.textContent = 'This section updates automatically from the league tracker.';
-      return;
-    }
-
-    const sorted = [...rows]
-      .filter(r => r.Player || r.player)
-      .sort((a, b) => (+a.Rank || +a.rank || 99) - (+b.Rank || +b.rank || 99));
-
-    sorted.forEach(r => {
-      const tr = el('tr');
-      tr.append(el('td', r.Rank || r.rank || ''));
-      const th = el('th', r.Player || r.player || '');
+      tr.append(el('td', currentRank.get(player) || ''));
+      const th = el('th', player);
       th.scope = 'row';
       tr.append(th);
 
-      weekFields.forEach(item => {
-        const value = String(r[item.field] || '').replace(/\*$/, '');
-        tr.append(el('td', value || '—'));
+      weeks.forEach(w => {
+        const rec = (w.records || {})[player];
+        if (!rec) {
+          tr.append(el('td', '—'));
+          return;
+        }
+        let value = `${+rec.correct || 0}-${+rec.wrong || 0}`;
+        if (+rec.push) value += ` (${rec.push} push${+rec.push === 1 ? '' : 'es'})`;
+        tr.append(el('td', value));
       });
-
       body.append(tr);
     });
 
     if (note) {
       note.textContent =
-        `Automatically updated through Week ${completedThrough}. Records show correct–wrong picks; NFL ties are pushes and are excluded from the correct–wrong record.`;
+        `Automatically archived through Week ${lastWeek}. Records show correct–wrong picks; NFL ties are pushes and do not count as wins or losses.`;
     }
   }
 
@@ -367,22 +367,19 @@
         gviz('games'),
         gviz('weekly_records'),
         gviz('season_standings'),
-        gviz('weekly_history').catch(() => null)
+        weeklyHistory().catch(() => null)
       ]);
       const meta = asObjects(metaP)[0] || {};
       if (!(+meta.week > 0) || !meta.generated_utc) throw new Error('Missing feed metadata');
-      if (lastMeta && meta.generated_utc === lastSeen) {
-        renderMeta(meta);
-        return;
-      }
       const sub = asObjects(subP), rec = asObjects(recP);
       renderMeta(meta);
       renderCards(meta, rec);
       renderSubmission(sub);
-      renderSeason(asObjects(ssP), meta);
+      const seasonRows = asObjects(ssP);
+      renderSeason(seasonRows, meta);
       renderGames(gamesP, meta);
       renderWeekly(rec, meta);
-      renderCompletedHistory(historyP, meta);
+      renderCompletedHistory(historyP, meta, seasonRows);
       lastSeen = meta.generated_utc;
       lastMeta = meta;
     } catch (err) {
