@@ -1,0 +1,80 @@
+{
+  "updated_at": "2026-10-13T22:20:00-04:00",
+  "weeks": [
+    {
+      "week": 1,
+      "records": {
+        "IDC": {"correct": 12, "wrong": 4},
+        "SICK": {"correct": 11, "wrong": 5},
+        "SMS": {"correct": 11, "wrong": 5},
+        "SLOTH": {"correct": 10, "wrong": 6},
+        "CURLZ99": {"correct": 11, "wrong": 5},
+        "DESKO": {"correct": 9, "wrong": 7},
+        "LL": {"correct": 8, "wrong": 8},
+        "PUGTERA": {"correct": 8, "wrong": 8},
+        "GADGET": {"correct": 11, "wrong": 5},
+        "ISPY": {"correct": 11, "wrong": 5}
+      }
+    },
+    {
+      "week": 2,
+      "records": {
+        "IDC": {"correct": 9, "wrong": 7},
+        "SICK": {"correct": 11, "wrong": 5},
+        "SMS": {"correct": 9, "wrong": 7},
+        "SLOTH": {"correct": 10, "wrong": 6},
+        "CURLZ99": {"correct": 10, "wrong": 6},
+        "DESKO": {"correct": 9, "wrong": 7},
+        "LL": {"correct": 8, "wrong": 8},
+        "PUGTERA": {"correct": 11, "wrong": 5},
+        "GADGET": {"correct": 8, "wrong": 8},
+        "ISPY": {"correct": 7, "wrong": 9}
+      }
+    },
+    {
+      "week": 3,
+      "records": {
+        "IDC": {"correct": 7, "wrong": 9},
+        "SICK": {"correct": 6, "wrong": 10},
+        "SMS": {"correct": 7, "wrong": 9},
+        "SLOTH": {"correct": 9, "wrong": 7},
+        "CURLZ99": {"correct": 8, "wrong": 8},
+        "DESKO": {"correct": 13, "wrong": 3},
+        "LL": {"correct": 11, "wrong": 5},
+        "PUGTERA": {"correct": 9, "wrong": 7},
+        "GADGET": {"correct": 9, "wrong": 7},
+        "ISPY": {"correct": 8, "wrong": 8}
+      }
+    },
+    {
+      "week": 4,
+      "records": {
+        "IDC": {"correct": 10, "wrong": 6},
+        "SICK": {"correct": 10, "wrong": 6},
+        "SMS": {"correct": 9, "wrong": 7},
+        "SLOTH": {"correct": 7, "wrong": 9},
+        "CURLZ99": {"correct": 11, "wrong": 5},
+        "DESKO": {"correct": 12, "wrong": 4},
+        "LL": {"correct": 10, "wrong": 6},
+        "PUGTERA": {"correct": 9, "wrong": 7},
+        "GADGET": {"correct": 3, "wrong": 13},
+        "ISPY": {"correct": 7, "wrong": 9}
+      }
+    },
+    {
+      "week": 5,
+      "records": {
+        "IDC": {"correct": 9, "wrong": 5, "push": 1},
+        "SICK": {"correct": 10, "wrong": 4, "push": 1},
+        "SMS": {"correct": 8, "wrong": 6, "push": 1},
+        "SLOTH": {"correct": 10, "wrong": 4, "push": 1},
+        "CURLZ99": {"correct": 8, "wrong": 6, "push": 1},
+        "DESKO": {"correct": 8, "wrong": 6, "push": 1},
+        "LL": {"correct": 8, "wrong": 6, "push": 1},
+        "PUGTERA": {"correct": 8, "wrong": 6, "push": 1},
+        "GADGET": {"correct": 9, "wrong": 5, "push": 1},
+        "ISPY": {"correct": 9, "wrong": 5, "push": 1}
+      }
+    }
+  ]
+}
