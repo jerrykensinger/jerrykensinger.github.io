@@ -390,6 +390,206 @@
     };
   }
 
+
+  // 2023–25 seasons were reconstructed from their archived Google Sheets.
+  // The current season is read from the existing completed-week history file.
+  let legacyPromise = null;
+  async function loadLegacyHistory() {
+    if (!legacyPromise) {
+      legacyPromise = Promise.all([2023, 2024, 2025].map(async year => {
+        const response = await fetch('nfl-legacy-' + year + '.json', {cache: 'no-store'});
+        if (!response.ok) throw new Error('Historical season ' + year + ': ' + response.status);
+        return response.json();
+      })).catch(err => {legacyPromise = null; throw err;});
+    }
+    return legacyPromise;
+  }
+
+  function archiveSeasons(history, legacy) {
+    const older = (legacy || []).filter(y => y && Array.isArray(y.verified_weeks))
+      .map(y => ({ year: +y.season, weeks: y.verified_weeks,
+        scores: y.season_scores || [], excluded: y.excluded || [] }));
+    const currentWeeks = history && Array.isArray(history.weeks) ? history.weeks : [];
+    if (currentWeeks.length) {
+      const overall = new Map();
+      const normalizedWeeks = currentWeeks.map(w => {
+        const scores = w.records || {};
+        const records = Object.entries(scores).map(([player, s]) => ({
+          player, correct: +s.correct || 0, wrong: +s.wrong || 0, push: +s.push || 0
+        }));
+        const best = Math.max(0, ...records.map(r => r.correct));
+        records.forEach(r => {
+          if (!overall.has(r.player)) overall.set(r.player,
+            { player: r.player, correct: 0, wrong: 0, push: 0, weeks: 0 });
+          const total = overall.get(r.player);
+          total.correct += r.correct;
+          total.wrong += r.wrong;
+          total.push += r.push;
+          total.weeks++;
+        });
+        return { week: +w.week, games: Array.isArray(w.games) ? w.games : [],
+          winners: records.filter(r => r.correct === best), scores };
+      });
+      older.push({ year: 2026, weeks: normalizedWeeks,
+        scores: [...overall.values()].sort((a, b) => b.correct - a.correct),
+        excluded: [] });
+    }
+    return older.sort((a, b) => b.year - a.year);
+  }
+
+  let historyView = {history: null, legacy: []};
+  function renderHistory(history, legacy) {
+    historyView = {history, legacy};
+    const filter = $('history-year-filter');
+    if (!filter) return;
+    if (!filter.dataset.historyBound) {
+      filter.addEventListener('change', () =>
+        renderHistory(historyView.history, historyView.legacy));
+      filter.dataset.historyBound = '1';
+    }
+    const seasons = archiveSeasons(history, legacy);
+    const selected = filter.value === 'all' ? seasons : seasons.filter(s => String(s.year) === filter.value);
+    const weeks = selected.flatMap(s => s.weeks.map(w => ({...w, year: s.year})))
+      .sort((a, b) => b.year - a.year || b.week - a.week);
+    const games = weeks.flatMap(w => (w.games || []).map(g => ({...g, year: w.year, week: w.week})));
+    const surprise = games.filter(g => !g.push && g.picked > 0 && g.correct === 0);
+    const solo = games.filter(g => !g.push && g.picked > 0 && g.correct === 1);
+    const unanimous = games.filter(g => !g.push && g.picked > 0 && g.correct === g.picked);
+
+    const counts = new Map();
+    for (const w of weeks) for (const winner of w.winners || [])
+      counts.set(winner.player, (counts.get(winner.player) || 0) + 1);
+    const most = Math.max(0, ...counts.values());
+    const leaders = [...counts].filter(([, count]) => count === most)
+      .map(([player]) => player).sort();
+
+    const allWinners = weeks.flatMap(w => (w.winners || []).map(p => ({...p, year:w.year, week:w.week})));
+    const bestWin = allWinners.sort((a, b) =>
+      (+b.correct || 0) - (+a.correct || 0) || (+a.wrong || 0) - (+b.wrong || 0))[0];
+
+    const stat = (index, value, detail) => {
+      const box = $('history-kpis')?.children[index];
+      if (!box) return;
+      const strong = box.querySelector('strong');
+      if (strong) strong.textContent = value;
+      let note = box.querySelector('small');
+      if (!note) {note = document.createElement('small'); box.append(note);}
+      note.textContent = detail;
+    };
+    stat(0, most ? leaders.join(' & ') : '—', most ? most + ' weekly wins' : 'No completed weeks');
+    stat(1, bestWin ? bestWin.correct + '–' + bestWin.wrong : '—',
+      bestWin ? bestWin.player + ' · ' + bestWin.year + ', Week ' + bestWin.week : 'No record yet');
+    stat(2, String(surprise.length), 'Games nobody picked correctly');
+    stat(3, String(solo.length), 'Games only one player called');
+
+    const championBody = $('history-champions');
+    if (championBody) {
+      championBody.replaceChildren();
+      for (const s of selected) {
+        const ranks = [...s.scores].sort((a, b) => (+b.correct || 0) - (+a.correct || 0));
+        if (!ranks.length) continue;
+        const best = +ranks[0].correct || 0;
+        const topPlayers = ranks.filter(p => (+p.correct || 0) === best);
+        const played = (+ranks[0].correct || 0) + (+ranks[0].wrong || 0);
+        const complete = s.year < 2026 && s.weeks.length === 18 && !s.excluded.length;
+        const tr = el('tr');
+        [String(s.year), topPlayers.map(p => p.player).join(' & '),
+          String(best), played ? (100 * best / played).toFixed(1) + '%' : '—',
+          complete ? '18 of 18 · Champion' : s.year === 2026
+            ? s.weeks.length + ' completed weeks · Ongoing'
+            : s.weeks.length + ' of 18 · Partial'].forEach(v => tr.append(el('td', v)));
+        championBody.append(tr);
+      }
+    }
+
+    const winnerBody = $('history-winners');
+    if (winnerBody) {
+      winnerBody.replaceChildren();
+      for (const w of weeks) {
+        if (!w.winners?.length) continue;
+        const first = w.winners[0];
+        const tr = el('tr');
+        [w.year + ' · Week ' + w.week,
+          w.winners.map(p => p.player).join(' & '),
+          (+first.correct || 0) + '–' + (+first.wrong || 0) +
+            (+first.push ? ' (' + first.push + ' push)' : '')].forEach(v => tr.append(el('td', v)));
+        winnerBody.append(tr);
+      }
+      if (!winnerBody.children.length) {
+        const tr = el('tr'); const td = el('td', 'No completed weeks for this season.');
+        td.colSpan = 3; tr.append(td); winnerBody.append(tr);
+      }
+    }
+
+    const storyList = $('history-storylines');
+    if (storyList) {
+      storyList.replaceChildren();
+      const stories = [];
+      const perfect = allWinners.filter(w => w.wrong === 0 && w.correct >= 12);
+      if (perfect.length) {
+        const best = perfect.sort((a,b) => b.correct-a.correct)[0];
+        stories.push('Perfect week: ' + best.player + ' went ' + best.correct + '–0 in ' +
+          best.year + ' Week ' + best.week + '.');
+      }
+      let streak = {count:0,player:'',year:0,end:0};
+      const persons = [...new Set(allWinners.map(w => w.player))];
+      for (const s of selected) for (const p of persons) {
+        const winningWeeks = new Set(s.weeks.filter(w => w.winners?.some(v => v.player === p)).map(w => +w.week));
+        for (const week of winningWeeks) {
+          let len = 1;
+          while (winningWeeks.has(week - len)) len++;
+          if (len > streak.count) streak = {count:len,player:p,year:s.year,end:week};
+        }
+      }
+      if (streak.count >= 2) stories.push('Winning streak: ' + streak.player + ' shared or won ' +
+        streak.count + ' consecutive weeks in ' + streak.year + ' (through Week ' + streak.end + ').');
+      const loneCounts = new Map();
+      for (const g of solo) if (g.lone_correct)
+        loneCounts.set(g.lone_correct, (loneCounts.get(g.lone_correct) || 0) + 1);
+      if (loneCounts.size) {
+        const [player, count] = [...loneCounts].sort((a,b) => b[1]-a[1])[0];
+        stories.push('Against the crowd: ' + player + ' was the only correct picker ' +
+          count + (count === 1 ? ' time.' : ' times.'));
+      }
+      stories.push(unanimous.length + ' games were unanimous correct picks across the chosen completed weeks.');
+      stories.push('Weekly-win leaders: ' + (most ? leaders.join(' & ') + ' (' + most + ' each)' : 'not available') + '.');
+      stories.forEach(s => storyList.append(el('li', s)));
+    }
+
+    const gameList = (id, values, suffix) => {
+      const list = $(id);
+      if (!list) return;
+      list.replaceChildren();
+      for (const g of values.slice().sort((a,b) => b.year-a.year || b.week-a.week || b.game-a.game).slice(0,12)) {
+        const li = el('li');
+        li.append(el('strong', g.winner));
+        li.append(document.createTextNode(' beat the league · ' + g.year + ' Week ' + g.week));
+        const note = el('span', g.away + ' vs ' + g.home + ' · ' +
+          (suffix === 'solo' ? g.lone_correct + ' was the lone correct picker' :
+            '0 of ' + g.picked + ' correctly picked the winner'), 'history-game-note');
+        li.append(note);
+        list.append(li);
+      }
+      if (!list.children.length) list.append(el('li', 'No matching completed games.'));
+    };
+    gameList('history-stunners', surprise, 'surprise');
+    gameList('history-lone-picks', solo, 'solo');
+
+    const footer = $('history-footnote');
+    if (footer) {
+      const missing = selected.filter(s => s.year < 2026 && s.weeks.length < 18)
+        .map(s => s.year + ' (' + s.weeks.length + '/18 weeks)');
+      footer.textContent = weeks.length + ' completed weeks, ' + games.length +
+        ' archived matchups included. NFL ties count as pushes. Shared wins count for each player.' +
+        (missing.length ? ' Partial historical seasons: ' + missing.join(', ') +
+          '; their season leaders are not confirmed champions.' : '') +
+        ' Current 2026 results count completed weeks only.';
+    }
+    const sub = $('history-sub');
+    if (sub) sub.textContent = 'Archived NFL league picks from 2023 onward · ' +
+      weeks.length + ' completed weeks available' + (filter.value === 'all' ? ' across seasons.' : ' in the selected season.');
+  }
+
   let lastSeen = '';
   let lastMeta = null;
   let refreshing = false;
@@ -397,13 +597,14 @@
     if (refreshing) return;
     refreshing = true;
     try {
-      const [metaP, subP, gamesP, recP, ssP, historyP] = await Promise.all([
+      const [metaP, subP, gamesP, recP, ssP, historyP, legacyP] = await Promise.all([
         gviz('meta'),
         gviz('submission_status'),
         gviz('games'),
         gviz('weekly_records'),
         gviz('season_standings'),
-        weeklyHistory().catch(() => null)
+        weeklyHistory().catch(() => null),
+        loadLegacyHistory().catch(() => [])
       ]);
       const sourceMeta = asObjects(metaP)[0] || {};
       if (!(+sourceMeta.week > 0) || !sourceMeta.generated_utc) throw new Error('Missing feed metadata');
@@ -417,6 +618,7 @@
       renderGames(clean.games, meta);
       renderWeekly(rec, meta);
       renderCompletedHistory(historyP, meta, seasonRows);
+      renderHistory(historyP, legacyP);
       lastSeen = meta.generated_utc;
       lastMeta = meta;
     } catch (err) {
