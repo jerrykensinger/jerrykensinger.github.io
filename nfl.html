@@ -51,13 +51,27 @@
 <details id="completed-weekly"><summary id="completed-weekly-summary">Completed weekly records</summary><div class="league-scroll" tabindex="0" role="region" aria-label="Weekly records"><table><caption class="sr-only">Weekly records</caption><thead><tr id="completed-weekly-head"><th scope="col">Rank</th><th scope="col">Player</th></tr></thead><tbody id="completed-weekly-body"><tr><td colspan="2">Loading completed weekly records…</td></tr></tbody></table></div><p id="completed-weekly-note">Completed weekly records update automatically from the league tracker.</p></details></section>
 <section id="history" class="anchor-offset" aria-labelledby="history-title">
   <h2 id="history-title">League history & records</h2>
-  <p id="history-sub">Looking back at completed weeks: past winners, standout performances, and picks nobody saw coming.</p>
+  <p id="history-sub">Looking back across verified NFL league seasons: champions, weekly winners, records, and picks nobody saw coming.</p>
+  <label class="history-filter">Explore season
+    <select id="history-year-filter" aria-label="Filter league history by season">
+      <option value="all">All seasons</option>
+      <option value="2026">2026 (current)</option>
+      <option value="2025">2025</option>
+      <option value="2024">2024</option>
+      <option value="2023">2023</option>
+    </select>
+  </label>
   <div class="history-stat-grid" id="history-kpis" aria-label="League historical records">
     <article class="history-stat"><span>Most weekly wins</span><strong>Loading…</strong></article>
     <article class="history-stat"><span>Best single week</span><strong>Loading…</strong></article>
     <article class="history-stat"><span>Nobody called it</span><strong>Loading…</strong></article>
     <article class="history-stat"><span>Only one called it</span><strong>Loading…</strong></article>
   </div>
+  <article class="history-panel history-champions">
+    <h3>🏅 Season leaders and champions</h3>
+    <p>Full 18-week seasons have verified champions. Incomplete seasons are clearly marked.</p>
+    <div class="league-scroll"><table><caption class="sr-only">All-time season leaders by correct picks</caption><thead><tr><th scope="col">Season</th><th scope="col">Leader</th><th scope="col">Correct</th><th scope="col">Accuracy</th><th scope="col">Coverage</th></tr></thead><tbody id="history-champions"><tr><td colspan="5">Checking historical seasons…</td></tr></tbody></table></div>
+  </article>
   <div class="history-columns">
     <article class="history-panel">
       <h3>🏆 Previous weekly winners</h3>
