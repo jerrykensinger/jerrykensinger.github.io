@@ -49,4 +49,4 @@
 .history-champions .league-scroll{max-width:100%}
 .history-panel #history-winners{font-variant-numeric:tabular-nums}
 .history-panel:has(#history-winners) .league-scroll{max-height:420px;overflow:auto}
-.history-panel .league-scroll th{position:sticky;top:0}
+.history-panel .league-scroll thead th{position:sticky;top:0;z-index:1}
