@@ -524,6 +524,520 @@
       }
     },
     {
+      "week": 3,
+      "games": [
+        {
+          "week": 3,
+          "game": 1,
+          "away": "New England Patriots",
+          "home": "New York Jets",
+          "winner": "New York Jets",
+          "correct": 8,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 2,
+          "away": "New York Giants",
+          "home": "Cleveland Browns",
+          "winner": "New York Giants",
+          "correct": 1,
+          "picked": 11,
+          "lone_correct": "ISPY",
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 3,
+          "away": "Philadelphia Eagles",
+          "home": "New Orleans Saints",
+          "winner": "Philadelphia Eagles",
+          "correct": 6,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 4,
+          "away": "Houston Texans",
+          "home": "Minnesota Vikings",
+          "winner": "Minnesota Vikings",
+          "correct": 3,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 5,
+          "away": "Denver Broncos",
+          "home": "Tampa Bay Buccaneers",
+          "winner": "Denver Broncos",
+          "correct": 2,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 6,
+          "away": "Green Bay Packers",
+          "home": "Tennessee Titans",
+          "winner": "Green Bay Packers",
+          "correct": 5,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 7,
+          "away": "Chicago Bears",
+          "home": "Indianapolis Colts",
+          "winner": "Indianapolis Colts",
+          "correct": 8,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 8,
+          "away": "Los Angeles Chargers",
+          "home": "Pittsburgh Steelers",
+          "winner": "Pittsburgh Steelers",
+          "correct": 8,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 9,
+          "away": "Miami Dolphins",
+          "home": "Seattle Seahawks",
+          "winner": "Seattle Seahawks",
+          "correct": 9,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 10,
+          "away": "Carolina Panthers",
+          "home": "Las Vegas Raiders",
+          "winner": "Carolina Panthers",
+          "correct": 2,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 11,
+          "away": "San Francisco 49ers",
+          "home": "Los Angeles Rams",
+          "winner": "Los Angeles Rams",
+          "correct": 3,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 12,
+          "away": "Detroit Lions",
+          "home": "Arizona Cardinals",
+          "winner": "Detroit Lions",
+          "correct": 6,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 13,
+          "away": "Baltimore Ravens",
+          "home": "Dallas Cowboys",
+          "winner": "Baltimore Ravens",
+          "correct": 6,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 14,
+          "away": "Kansas City Chiefs",
+          "home": "Atlanta Falcons",
+          "winner": "Kansas City Chiefs",
+          "correct": 9,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 15,
+          "away": "Jacksonville Jaguars",
+          "home": "Buffalo Bills",
+          "winner": "Buffalo Bills",
+          "correct": 9,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 3,
+          "game": 16,
+          "away": "Washington Commanders",
+          "home": "Cincinnati Bengals",
+          "winner": "Washington Commanders",
+          "correct": 1,
+          "picked": 11,
+          "lone_correct": "SLOTH",
+          "push": false
+        }
+      ],
+      "winners": [
+        {
+          "player": "ISPY",
+          "correct": 11,
+          "wrong": 5,
+          "push": 0
+        }
+      ],
+      "scores": {
+        "IDC": {
+          "correct": 8,
+          "wrong": 8,
+          "push": 0,
+          "no_pick": 0
+        },
+        "SICK": {
+          "correct": 8,
+          "wrong": 8,
+          "push": 0,
+          "no_pick": 0
+        },
+        "SMS": {
+          "correct": 8,
+          "wrong": 8,
+          "push": 0,
+          "no_pick": 0
+        },
+        "SLOTH": {
+          "correct": 8,
+          "wrong": 8,
+          "push": 0,
+          "no_pick": 0
+        },
+        "BUMP": {
+          "correct": 8,
+          "wrong": 8,
+          "push": 0,
+          "no_pick": 0
+        },
+        "DESKO": {
+          "correct": 10,
+          "wrong": 6,
+          "push": 0,
+          "no_pick": 0
+        },
+        "LL": {
+          "correct": 6,
+          "wrong": 10,
+          "push": 0,
+          "no_pick": 0
+        },
+        "GOTS": {
+          "correct": 10,
+          "wrong": 6,
+          "push": 0,
+          "no_pick": 0
+        },
+        "PUGTERA": {
+          "correct": 2,
+          "wrong": 14,
+          "push": 0,
+          "no_pick": 0
+        },
+        "GADGET": {
+          "correct": 7,
+          "wrong": 9,
+          "push": 0,
+          "no_pick": 0
+        },
+        "ISPY": {
+          "correct": 11,
+          "wrong": 5,
+          "push": 0,
+          "no_pick": 0
+        }
+      }
+    },
+    {
+      "week": 4,
+      "games": [
+        {
+          "week": 4,
+          "game": 1,
+          "away": "Dallas Cowboys",
+          "home": "New York Giants",
+          "winner": "Dallas Cowboys",
+          "correct": 11,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 2,
+          "away": "Cincinnati Bengals",
+          "home": "Carolina Panthers",
+          "winner": "Cincinnati Bengals",
+          "correct": 9,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 3,
+          "away": "New Orleans Saints",
+          "home": "Atlanta Falcons",
+          "winner": "Atlanta Falcons",
+          "correct": 5,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 4,
+          "away": "Jacksonville Jaguars",
+          "home": "Houston Texans",
+          "winner": "Houston Texans",
+          "correct": 9,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 5,
+          "away": "Denver Broncos",
+          "home": "New York Jets",
+          "winner": "Denver Broncos",
+          "correct": 4,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 6,
+          "away": "Minnesota Vikings",
+          "home": "Green Bay Packers",
+          "winner": "Minnesota Vikings",
+          "correct": 4,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 7,
+          "away": "Pittsburgh Steelers",
+          "home": "Indianapolis Colts",
+          "winner": "Indianapolis Colts",
+          "correct": 1,
+          "picked": 11,
+          "lone_correct": "GADGET",
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 8,
+          "away": "Los Angeles Rams",
+          "home": "Chicago Bears",
+          "winner": "Chicago Bears",
+          "correct": 4,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 9,
+          "away": "Philadelphia Eagles",
+          "home": "Tampa Bay Buccaneers",
+          "winner": "Tampa Bay Buccaneers",
+          "correct": 2,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 10,
+          "away": "New England Patriots",
+          "home": "San Francisco 49ers",
+          "winner": "San Francisco 49ers",
+          "correct": 10,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 11,
+          "away": "Washington Commanders",
+          "home": "Arizona Cardinals",
+          "winner": "Washington Commanders",
+          "correct": 3,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 12,
+          "away": "Kansas City Chiefs",
+          "home": "Los Angeles Chargers",
+          "winner": "Kansas City Chiefs",
+          "correct": 9,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 13,
+          "away": "Cleveland Browns",
+          "home": "Las Vegas Raiders",
+          "winner": "Las Vegas Raiders",
+          "correct": 6,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 14,
+          "away": "Buffalo Bills",
+          "home": "Baltimore Ravens",
+          "winner": "Baltimore Ravens",
+          "correct": 3,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 15,
+          "away": "Tennessee Titans",
+          "home": "Miami Dolphins",
+          "winner": "Tennessee Titans",
+          "correct": 7,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 4,
+          "game": 16,
+          "away": "Seattle Seahawks",
+          "home": "Detroit Lions",
+          "winner": "Detroit Lions",
+          "correct": 8,
+          "picked": 11,
+          "lone_correct": null,
+          "push": false
+        }
+      ],
+      "winners": [
+        {
+          "player": "DESKO",
+          "correct": 11,
+          "wrong": 5,
+          "push": 0
+        }
+      ],
+      "scores": {
+        "IDC": {
+          "correct": 10,
+          "wrong": 6,
+          "push": 0,
+          "no_pick": 0
+        },
+        "SICK": {
+          "correct": 8,
+          "wrong": 8,
+          "push": 0,
+          "no_pick": 0
+        },
+        "SMS": {
+          "correct": 8,
+          "wrong": 8,
+          "push": 0,
+          "no_pick": 0
+        },
+        "SLOTH": {
+          "correct": 9,
+          "wrong": 7,
+          "push": 0,
+          "no_pick": 0
+        },
+        "BUMP": {
+          "correct": 8,
+          "wrong": 8,
+          "push": 0,
+          "no_pick": 0
+        },
+        "DESKO": {
+          "correct": 11,
+          "wrong": 5,
+          "push": 0,
+          "no_pick": 0
+        },
+        "LL": {
+          "correct": 7,
+          "wrong": 9,
+          "push": 0,
+          "no_pick": 0
+        },
+        "GOTS": {
+          "correct": 10,
+          "wrong": 6,
+          "push": 0,
+          "no_pick": 0
+        },
+        "PUGTERA": {
+          "correct": 5,
+          "wrong": 11,
+          "push": 0,
+          "no_pick": 0
+        },
+        "GADGET": {
+          "correct": 10,
+          "wrong": 6,
+          "push": 0,
+          "no_pick": 0
+        },
+        "ISPY": {
+          "correct": 9,
+          "wrong": 7,
+          "push": 0,
+          "no_pick": 0
+        }
+      }
+    },
+    {
       "week": 5,
       "games": [
         {
@@ -2966,6 +3480,275 @@
       }
     },
     {
+      "week": 15,
+      "games": [
+        {
+          "week": 15,
+          "game": 1,
+          "away": "Los Angeles Rams",
+          "home": "San Francisco 49ers",
+          "winner": "Los Angeles Rams",
+          "correct": 5,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 2,
+          "away": "Washington Commanders",
+          "home": "New Orleans Saints",
+          "winner": "Washington Commanders",
+          "correct": 9,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 3,
+          "away": "Kansas City Chiefs",
+          "home": "Cleveland Browns",
+          "winner": "Kansas City Chiefs",
+          "correct": 11,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 4,
+          "away": "Cincinnati Bengals",
+          "home": "Tennessee Titans",
+          "winner": "Cincinnati Bengals",
+          "correct": 10,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 5,
+          "away": "Miami Dolphins",
+          "home": "Houston Texans",
+          "winner": "Houston Texans",
+          "correct": 6,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 6,
+          "away": "Baltimore Ravens",
+          "home": "New York Giants",
+          "winner": "Baltimore Ravens",
+          "correct": 12,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 7,
+          "away": "New York Jets",
+          "home": "Jacksonville Jaguars",
+          "winner": "New York Jets",
+          "correct": 9,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 8,
+          "away": "Dallas Cowboys",
+          "home": "Carolina Panthers",
+          "winner": "Dallas Cowboys",
+          "correct": 9,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 9,
+          "away": "Tampa Bay Buccaneers",
+          "home": "Los Angeles Chargers",
+          "winner": "Tampa Bay Buccaneers",
+          "correct": 3,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 10,
+          "away": "Indianapolis Colts",
+          "home": "Denver Broncos",
+          "winner": "Denver Broncos",
+          "correct": 11,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 11,
+          "away": "New England Patriots",
+          "home": "Arizona Cardinals",
+          "winner": "Arizona Cardinals",
+          "correct": 10,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 12,
+          "away": "Buffalo Bills",
+          "home": "Detroit Lions",
+          "winner": "Buffalo Bills",
+          "correct": 7,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 13,
+          "away": "Pittsburgh Steelers",
+          "home": "Philadelphia Eagles",
+          "winner": "Philadelphia Eagles",
+          "correct": 4,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 14,
+          "away": "Green Bay Packers",
+          "home": "Seattle Seahawks",
+          "winner": "Green Bay Packers",
+          "correct": 9,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 15,
+          "away": "Chicago Bears",
+          "home": "Minnesota Vikings",
+          "winner": "Minnesota Vikings",
+          "correct": 11,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "week": 15,
+          "game": 16,
+          "away": "Atlanta Falcons",
+          "home": "Las Vegas Raiders",
+          "winner": "Atlanta Falcons",
+          "correct": 11,
+          "picked": 12,
+          "lone_correct": null,
+          "push": false
+        }
+      ],
+      "winners": [
+        {
+          "player": "SICK",
+          "correct": 14,
+          "wrong": 2,
+          "push": 0
+        },
+        {
+          "player": "GOTS",
+          "correct": 14,
+          "wrong": 2,
+          "push": 0
+        }
+      ],
+      "scores": {
+        "IDC": {
+          "correct": 13,
+          "wrong": 3,
+          "push": 0,
+          "no_pick": 0
+        },
+        "SICK": {
+          "correct": 14,
+          "wrong": 2,
+          "push": 0,
+          "no_pick": 0
+        },
+        "SMS": {
+          "correct": 13,
+          "wrong": 3,
+          "push": 0,
+          "no_pick": 0
+        },
+        "SLOTH": {
+          "correct": 8,
+          "wrong": 8,
+          "push": 0,
+          "no_pick": 0
+        },
+        "BUMP": {
+          "correct": 12,
+          "wrong": 4,
+          "push": 0,
+          "no_pick": 0
+        },
+        "DESKO": {
+          "correct": 13,
+          "wrong": 3,
+          "push": 0,
+          "no_pick": 0
+        },
+        "LL": {
+          "correct": 10,
+          "wrong": 6,
+          "push": 0,
+          "no_pick": 0
+        },
+        "GOTS": {
+          "correct": 14,
+          "wrong": 2,
+          "push": 0,
+          "no_pick": 0
+        },
+        "PUGTERA": {
+          "correct": 8,
+          "wrong": 8,
+          "push": 0,
+          "no_pick": 0
+        },
+        "GADGET": {
+          "correct": 11,
+          "wrong": 5,
+          "push": 0,
+          "no_pick": 0
+        },
+        "ISPY": {
+          "correct": 9,
+          "wrong": 7,
+          "push": 0,
+          "no_pick": 0
+        },
+        "CURLZ99": {
+          "correct": 12,
+          "wrong": 4,
+          "push": 0,
+          "no_pick": 0
+        }
+      }
+    },
+    {
       "week": 16,
       "games": [
         {
@@ -3767,116 +4550,122 @@
       }
     }
   ],
-  "excluded": [
-    {
-      "week": 3,
-      "reason": "INVALID_ARGUMENT: Error code: INVALID_ARGUMENT; Error: HTTPError: 400: \n\n\n\nBad Request\n\nContent:\n{'code': 400,\n 'message': \"Unable to parse range: 'Week 3-24'!A1:Q29\",\n 'status': 'INVALID_ARGUMENT'}\n\nRequest URL:\nhttps://sheets.googleapis.com/v4/spreadsheets/1p6_390hVT2N1NEmDVLIezXdG9u10Ulzr39t52M-xxck?ranges=%27Week+3-24%27%21A1%3AQ29&includeGridData=True&fields=spreadsheetId%2CspreadsheetUrl%2Cproperties%28title%2Clocale%2CtimeZone%29%2Csheets%28properties%28sheetId%2Ctitle%2Cindex%2CsheetType%2Chidden%2CgridProperties%29%2Cdata%28startRow%2CstartColumn%2CrowData%28values%28formattedValue%29%29%29%29 (Response: {'error': {'code': 400, 'message': \"Unable to parse range: 'Week 3-24'!A1:Q29\", 'status': 'INVALID_ARGUMENT'}})"
-    },
-    {
-      "week": 4,
-      "reason": "INVALID_ARGUMENT: Error code: INVALID_ARGUMENT; Error: HTTPError: 400: \n\n\n\nBad Request\n\nContent:\n{'code': 400,\n 'message': \"Unable to parse range: 'Week 4-24'!A1:Q29\",\n 'status': 'INVALID_ARGUMENT'}\n\nRequest URL:\nhttps://sheets.googleapis.com/v4/spreadsheets/1p6_390hVT2N1NEmDVLIezXdG9u10Ulzr39t52M-xxck?ranges=%27Week+4-24%27%21A1%3AQ29&includeGridData=True&fields=spreadsheetId%2CspreadsheetUrl%2Cproperties%28title%2Clocale%2CtimeZone%29%2Csheets%28properties%28sheetId%2Ctitle%2Cindex%2CsheetType%2Chidden%2CgridProperties%29%2Cdata%28startRow%2CstartColumn%2CrowData%28values%28formattedValue%29%29%29%29 (Response: {'error': {'code': 400, 'message': \"Unable to parse range: 'Week 4-24'!A1:Q29\", 'status': 'INVALID_ARGUMENT'}})"
-    },
-    {
-      "week": 15,
-      "reason": "games=0, missing results [{\"row\":4,\"winner\":\"\",\"away\":\"Los Angeles Rams\",\"home\":\"San Francisco 49ers\"},{\"row\":7,\"winner\":\"\",\"away\":\"Washington Commanders\",\"home\":\"New Orleans Saints\"},{\"row\":8,\"winner\":\"\",\"away\":\"Kansas City Chiefs\",\"home\":\"Cleveland Browns\"},{\"row\":9,\"winner\":\"\",\"away\":\"Cincinnati Bengals\",\"home\":\"New York Giants\"},{\"row\":10,\"winner\":\"\",\"away\":\"Miami Dolphins\",\"home\":\"Houston Texans\"}]"
-    }
-  ],
+  "excluded": [],
   "season_scores": [
     {
       "player": "IDC",
-      "correct": 166,
-      "wrong": 58,
+      "correct": 197,
+      "wrong": 75,
       "push": 0,
       "no_pick": 0,
-      "weeks": 15
+      "weeks": 18
     },
     {
       "player": "SMS",
-      "correct": 164,
-      "wrong": 60,
+      "correct": 193,
+      "wrong": 79,
       "push": 0,
       "no_pick": 0,
-      "weeks": 15
-    },
-    {
-      "player": "SICK",
-      "correct": 159,
-      "wrong": 65,
-      "push": 0,
-      "no_pick": 0,
-      "weeks": 15
-    },
-    {
-      "player": "BUMP",
-      "correct": 159,
-      "wrong": 65,
-      "push": 0,
-      "no_pick": 0,
-      "weeks": 15
+      "weeks": 18
     },
     {
       "player": "DESKO",
-      "correct": 156,
-      "wrong": 68,
+      "correct": 190,
+      "wrong": 82,
       "push": 0,
       "no_pick": 0,
-      "weeks": 15
+      "weeks": 18
     },
     {
-      "player": "SLOTH",
-      "correct": 148,
-      "wrong": 76,
-      "push": 0,
-      "no_pick": 0,
-      "weeks": 15
-    },
-    {
-      "player": "GOTS",
-      "correct": 148,
-      "wrong": 76,
-      "push": 0,
-      "no_pick": 0,
-      "weeks": 15
-    },
-    {
-      "player": "GADGET",
-      "correct": 141,
+      "player": "SICK",
+      "correct": 189,
       "wrong": 83,
       "push": 0,
       "no_pick": 0,
-      "weeks": 15
+      "weeks": 18
     },
     {
-      "player": "LL",
-      "correct": 132,
-      "wrong": 92,
+      "player": "BUMP",
+      "correct": 187,
+      "wrong": 85,
       "push": 0,
       "no_pick": 0,
-      "weeks": 15
+      "weeks": 18
+    },
+    {
+      "player": "GOTS",
+      "correct": 182,
+      "wrong": 90,
+      "push": 0,
+      "no_pick": 0,
+      "weeks": 18
+    },
+    {
+      "player": "SLOTH",
+      "correct": 173,
+      "wrong": 99,
+      "push": 0,
+      "no_pick": 0,
+      "weeks": 18
+    },
+    {
+      "player": "GADGET",
+      "correct": 169,
+      "wrong": 103,
+      "push": 0,
+      "no_pick": 0,
+      "weeks": 18
     },
     {
       "player": "ISPY",
-      "correct": 127,
-      "wrong": 97,
+      "correct": 156,
+      "wrong": 116,
       "push": 0,
       "no_pick": 0,
-      "weeks": 15
+      "weeks": 18
+    },
+    {
+      "player": "LL",
+      "correct": 155,
+      "wrong": 117,
+      "push": 0,
+      "no_pick": 0,
+      "weeks": 18
     },
     {
       "player": "PUGTERA",
-      "correct": 109,
-      "wrong": 115,
+      "correct": 124,
+      "wrong": 148,
       "push": 0,
       "no_pick": 0,
-      "weeks": 15
+      "weeks": 18
     },
     {
       "player": "CURLZ99",
-      "correct": 60,
-      "wrong": 30,
+      "correct": 72,
+      "wrong": 34,
       "push": 0,
       "no_pick": 0,
-      "weeks": 6
+      "weeks": 7
+    }
+  ],
+  "verification_notes": [
+    {
+      "week": 15,
+      "source_tab": "Copy of Week 15-24 - NEW",
+      "detail": "Game-by-game picks differ from historical Wins tally; game-by-game counts used",
+      "differences": [
+        {
+          "player": "PUGTERA",
+          "computed": 8,
+          "old_tally": 7
+        },
+        {
+          "player": "GADGET",
+          "computed": 11,
+          "old_tally": 12
+        }
+      ]
     }
   ]
 }
