@@ -372,7 +372,7 @@
     // the upstream feed writer is repaired, no adjustment will be made.
     const standingsLeak = extra.length > 0 && extra.every(g =>
       submission.some(p => p.player === String(g.away)) &&
-      /^\\d+$/.test(String(g.home)) && !g.kickoff_et &&
+      /^\d+$/.test(String(g.home)) && !g.kickoff_et &&
       g.state === 'scheduled' && +g.n_picked === 2);
     const corrected = submission.map((p, idx) => {
       const extraPicks = standingsLeak && idx < 2 ? extra.length : 0;
