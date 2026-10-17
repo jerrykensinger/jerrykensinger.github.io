@@ -354,6 +354,42 @@
     }
   }
 
+  // The feed writer has mistakenly included dashboard Sorted Results rows as
+  // games. Only an actual NFL-vs-NFL matchup may affect live game totals.
+  function normalizeFeed(meta, submission, parsedGames) {
+    const all = asObjects(parsedGames);
+    const isGame = g => Object.hasOwn(ABBR, String(g.away).trim()) &&
+      Object.hasOwn(ABBR, String(g.home).trim()) &&
+      String(g.away).trim() !== String(g.home).trim() &&
+      Number.isInteger(+g.game) && +g.game >= 1 && +g.game <= 16;
+    const real = all.filter(isGame);
+    const extra = all.filter(g => !isGame(g));
+    const total = real.length;
+
+    // Current feed bug: the standings block contributes one false pick for
+    // each of the first two dashboard player columns (D and E) per bogus row.
+    // Apply only when the exact known standings-row shape is present. When
+    // the upstream feed writer is repaired, no adjustment will be made.
+    const standingsLeak = extra.length > 0 && extra.every(g =>
+      submission.some(p => p.player === String(g.away)) &&
+      /^\\d+$/.test(String(g.home)) && !g.kickoff_et &&
+      g.state === 'scheduled' && +g.n_picked === 2);
+    const corrected = submission.map((p, idx) => {
+      const extraPicks = standingsLeak && idx < 2 ? extra.length : 0;
+      const picks = Math.max(0, Math.min(total, (+p.picks_in || 0) - extraPicks));
+      return { ...p, picks_in: picks, games_total: total,
+        status: picks === total && total > 0 ? 'COMPLETE' :
+          picks === 0 ? 'NOT STARTED' : `${total - picks} REMAINING` };
+    });
+    const parsed = { ...parsedGames, rows: parsedGames.rows.filter((r, i) => isGame(all[i])) };
+    return {
+      meta: { ...meta, games_total: total,
+        games_final: real.filter(g => g.state === 'final').length },
+      submission: corrected,
+      games: parsed
+    };
+  }
+
   let lastSeen = '';
   let lastMeta = null;
   let refreshing = false;
@@ -369,15 +405,16 @@
         gviz('season_standings'),
         weeklyHistory().catch(() => null)
       ]);
-      const meta = asObjects(metaP)[0] || {};
-      if (!(+meta.week > 0) || !meta.generated_utc) throw new Error('Missing feed metadata');
-      const sub = asObjects(subP), rec = asObjects(recP);
+      const sourceMeta = asObjects(metaP)[0] || {};
+      if (!(+sourceMeta.week > 0) || !sourceMeta.generated_utc) throw new Error('Missing feed metadata');
+      const clean = normalizeFeed(sourceMeta, asObjects(subP), gamesP);
+      const meta = clean.meta, sub = clean.submission, rec = asObjects(recP);
       renderMeta(meta);
       renderCards(meta, rec);
       renderSubmission(sub);
       const seasonRows = asObjects(ssP);
       renderSeason(seasonRows, meta);
-      renderGames(gamesP, meta);
+      renderGames(clean.games, meta);
       renderWeekly(rec, meta);
       renderCompletedHistory(historyP, meta, seasonRows);
       lastSeen = meta.generated_utc;
