@@ -50,3 +50,15 @@
 .history-panel #history-winners{font-variant-numeric:tabular-nums}
 .history-panel:has(#history-winners) .league-scroll{max-height:420px;overflow:auto}
 .history-panel .league-scroll thead th{position:sticky;top:0;z-index:1}
+#submissions .league-scroll{border:0;background:none;overflow:visible}
+#submissions table{white-space:normal}
+#submissions thead{display:none}
+#submissions tbody{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+#submissions tbody tr{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 8px;padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+#submissions tbody tr>*{padding:0;border:0;font-size:13px}
+#submissions tbody tr>td:first-of-type{grid-column:1;color:var(--muted);font-size:12px}
+#submissions tbody tr>td:last-of-type{grid-column:2;grid-row:1/span 2}
+#submissions tbody th small{font-size:11px}
+#submissions tbody tr>td[colspan]{grid-column:1/-1;grid-row:auto}
+#submissions .status-pill{font-size:11px;padding:2px 8px}
+#submissions .league-note{padding-top:8px!important;margin:8px 0 0;font-size:12px}
