@@ -3,21 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NFL Picks League</title>
-  <meta name="description" content="NFL picks league weekly results and season standings.">
-  <meta name="theme-color" content="#f5f5f7">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="NFL Picks League | Jerry Kensinger">
-  <meta property="og:description" content="NFL picks league weekly results and season standings.">
-  <meta property="og:url" content="https://jerrykensinger.com/nfl.html">
-  <meta property="og:image" content="https://jerrykensinger.com/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://jerrykensinger.com/nfl.html">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="stylesheet" href="style.css">
-  
+  <title>NFL Picks League has moved</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://nfl.jerrykensinger.com/">
+  <meta http-equiv="refresh" content="0; url=https://nfl.jerrykensinger.com/">
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EJ8CPRPSRB"></script>
 <script>
@@ -26,85 +15,18 @@
   gtag('js', new Date());
   gtag('config', 'G-EJ8CPRPSRB');
 </script>
-<link rel="stylesheet" href="nfl.css">
+  <script>location.replace('https://nfl.jerrykensinger.com/' + location.hash);</script>
+  <style>
+    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:16px;box-sizing:border-box;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f5f5f7;color:#1d1d1f;text-align:center}
+    a{color:#0066cc;font-weight:600}
+    @media (prefers-color-scheme:dark){body{background:#111;color:#f5f5f7}a{color:#4da3ff}}
+  </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <header class="league-topbar">
-    <span class="league-brand"><span aria-hidden="true">🏈</span> NFL Picks League</span>
-    <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
-      <span class="theme-icon" aria-hidden="true">◐</span>
-    </button>
-  </header>
-
-  <main id="main" class="league section">
-<p class="eyebrow" id="league-eyebrow">NFL Picks League</p>
-<div class="league-title"><div><h1>The league scoreboard.</h1><p>Weekly results, season standings, and the race to the top.</p></div><span class="league-badge" id="league-badge">Loading results…</span></div>
-<p class="league-updated" id="league-updated">Loading live league data…</p>
-<div class="league-cards"><article id="card-season-leader"><span>Season leader</span><h2>Loading…</h2><p>Checking season standings.</p></article><article id="card-week-leaders"><span>Weekly leaders</span><h2>Loading…</h2><p>Checking weekly results.</p></article><article id="card-pending"><span>Games remaining</span><h2>Loading…</h2><p>Checking the current schedule.</p></article></div>
-<nav class="league-jump" aria-label="League sections"><a href="#games">Game results</a><a href="#season">Season standings</a><a href="#submissions">Pick status</a><a href="#weekly" id="jump-weekly">Weekly standings</a><a href="#history">League history</a></nav>
-<section id="games" class="anchor-offset"><h2 id="games-title">Game results</h2><p id="games-sub">Loading the current schedule…</p><div class="league-scroll" tabindex="0" role="region" aria-label="Game results"><table><caption class="sr-only">Game results</caption><thead><tr id="games-head"><th scope="col">Game</th><th scope="col">Away</th><th scope="col">Score</th><th scope="col">Home</th><th scope="col">Score</th><th scope="col">Winner</th></tr></thead><tbody id="games-body"><tr><td colspan="6">Loading live data…</td></tr></tbody></table></div></section>
-<section id="season" class="anchor-offset"><h2>Season standings</h2><p id="season-sub">Loading season standings…</p><div class="league-scroll" tabindex="0" role="region" aria-label="Season standings"><table><caption class="sr-only">Season standings</caption><thead><tr><th scope="col">Rank</th><th scope="col">Player</th><th scope="col">Correct</th><th scope="col">Wrong</th><th scope="col">Win %</th><th scope="col">Weekly wins</th></tr></thead><tbody id="season-body"><tr><td colspan="6">Loading live data…</td></tr></tbody></table></div></section>
-<section id="submissions" class="anchor-offset"><h2>Pick submission status</h2><p id="submission-summary">Checking live pick data…</p><div class="league-scroll" tabindex="0" role="region" aria-label="Pick submission status"><table><caption class="sr-only">Pick submission status</caption><thead><tr><th scope="col">Player</th><th scope="col">Picks in</th><th scope="col">Status</th></tr></thead><tbody id="submission-body"><tr><td colspan="3">Loading live data…</td></tr></tbody></table></div><p class="league-note" style="border:0;padding-top:12px">Counts update automatically as picks come in. Individual team picks are never shown here.</p></section>
-<section id="weekly" class="anchor-offset"><h2 id="weekly-title">Weekly standings</h2><p id="weekly-sub">Loading weekly standings…</p><div class="league-scroll" tabindex="0" role="region" aria-label="Weekly standings"><table><caption class="sr-only">Weekly standings</caption><thead><tr><th scope="col">Rank</th><th scope="col">Player</th><th scope="col">Correct</th><th scope="col">Wrong</th><th scope="col">No pick</th><th scope="col">Win %</th></tr></thead><tbody id="weekly-body"><tr><td colspan="6">Loading live data…</td></tr></tbody></table></div>
-<p id="weekly-winner" aria-live="polite"></p>
-<details id="completed-weekly"><summary id="completed-weekly-summary">Completed weekly records</summary><div class="league-scroll" tabindex="0" role="region" aria-label="Weekly records"><table><caption class="sr-only">Weekly records</caption><thead><tr id="completed-weekly-head"><th scope="col">Rank</th><th scope="col">Player</th></tr></thead><tbody id="completed-weekly-body"><tr><td colspan="2">Loading completed weekly records…</td></tr></tbody></table></div><p id="completed-weekly-note">Completed weekly records update automatically from the league tracker.</p></details></section>
-<section id="history" class="anchor-offset" aria-labelledby="history-title">
-  <h2 id="history-title">League history & records</h2>
-  <p id="history-sub">Looking back across verified NFL league seasons: champions, weekly winners, records, and picks nobody saw coming.</p>
-  <label class="history-filter">Explore season
-    <select id="history-year-filter" aria-label="Filter league history by season">
-      <option value="all">All seasons</option>
-      <option value="2026">2026 (current)</option>
-      <option value="2025">2025</option>
-      <option value="2024">2024</option>
-      <option value="2023">2023</option>
-    </select>
-  </label>
-  <div class="history-stat-grid" id="history-kpis" aria-label="League historical records">
-    <article class="history-stat"><span>Most weekly wins</span><strong>Loading…</strong></article>
-    <article class="history-stat"><span>Best single week</span><strong>Loading…</strong></article>
-    <article class="history-stat"><span>Nobody called it</span><strong>Loading…</strong></article>
-    <article class="history-stat"><span>Only one called it</span><strong>Loading…</strong></article>
-  </div>
-  <article class="history-panel history-champions">
-    <h3>🏅 Season leaders and champions</h3>
-    <p>Full 18-week seasons have verified champions. Incomplete seasons are clearly marked.</p>
-    <div class="league-scroll"><table><caption class="sr-only">All-time season leaders by correct picks</caption><thead><tr><th scope="col">Season</th><th scope="col">Leader</th><th scope="col">Correct</th><th scope="col">Accuracy</th><th scope="col">Coverage</th></tr></thead><tbody id="history-champions"><tr><td colspan="5">Checking historical seasons…</td></tr></tbody></table></div>
-  </article>
-  <div class="history-columns">
-    <article class="history-panel">
-      <h3>🏆 Previous weekly winners</h3>
-      <p>Shared wins count for every tied winner.</p>
-      <div class="league-scroll"><table><caption class="sr-only">Weekly winning players in completed weeks</caption><thead><tr><th scope="col">Week</th><th scope="col">Winner(s)</th><th scope="col">Record</th></tr></thead><tbody id="history-winners"><tr><td colspan="3">Loading completed weeks…</td></tr></tbody></table></div>
-    </article>
-    <article class="history-panel">
-      <h3>📈 Season storylines</h3>
-      <p>Highlights drawn from finished weeks only.</p>
-      <ul id="history-storylines" class="history-stories"><li>Reviewing past games…</li></ul>
-    </article>
-  </div>
-  <div class="history-columns">
-    <article class="history-panel">
-      <h3>😲 Nobody saw it coming</h3>
-      <p>Completed matchups where no submitted pick was correct.</p>
-      <ul id="history-stunners" class="history-games"><li>Checking archived matchups…</li></ul>
-    </article>
-    <article class="history-panel">
-      <h3>🎯 Lone correct picks</h3>
-      <p>Just one player called the winner.</p>
-      <ul id="history-lone-picks" class="history-games"><li>Checking archived matchups…</li></ul>
-    </article>
-  </div>
-  <p class="history-footnote" id="history-footnote">Records count completed league weeks only. NFL ties are pushes, not wins or losses.</p>
-</section>
-<p class="league-note" id="league-note">Pick counts, results, and standings refresh automatically every five minutes. Player nicknames are used throughout.</p>
-</main>
-
-  <noscript><p class="league-note">Enable JavaScript to see current picks, results, and season standings.</p></noscript>
-  <script src="script.js"></script>
-  <script src="nfl-league.js?v=20261021-leak-fix"></script>
+  <main>
+    <h1>🏈 This page has moved</h1>
+    <p>The NFL Picks League is now at <a href="https://nfl.jerrykensinger.com/">nfl.jerrykensinger.com</a>.</p>
+  </main>
 </body>
 </html>
-
