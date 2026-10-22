@@ -366,16 +366,17 @@
     const extra = all.filter(g => !isGame(g));
     const total = real.length;
 
-    // Current feed bug: the standings block contributes one false pick for
-    // each of the first two dashboard player columns (D and E) per bogus row.
-    // Apply only when the exact known standings-row shape is present. When
-    // the upstream feed writer is repaired, no adjustment will be made.
+    // Current feed bug: each standings row leaks false picks into the first
+    // dashboard player columns (D = losses, E = win % once games are final).
+    // n_picked says how many leaked (1 before results, 2 after). Apply only
+    // when the exact known standings-row shape is present. When the upstream
+    // feed writer is repaired, no adjustment will be made.
     const standingsLeak = extra.length > 0 && extra.every(g =>
       submission.some(p => p.player === String(g.away)) &&
       /^\d+$/.test(String(g.home)) && !g.kickoff_et &&
-      g.state === 'scheduled' && +g.n_picked === 2);
+      g.state === 'scheduled' && [0, 1, 2].includes(+g.n_picked));
     const corrected = submission.map((p, idx) => {
-      const extraPicks = standingsLeak && idx < 2 ? extra.length : 0;
+      const extraPicks = standingsLeak ? extra.filter(g => +g.n_picked > idx).length : 0;
       const picks = Math.max(0, Math.min(total, (+p.picks_in || 0) - extraPicks));
       return { ...p, picks_in: picks, games_total: total,
         status: picks === total && total > 0 ? 'COMPLETE' :
