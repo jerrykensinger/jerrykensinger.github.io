@@ -20,6 +20,8 @@
 
   const FEED_ID = '18BN00MtCX4iSMBtkPdbS2LVBOE3BnMdppQnPQY1fUJM';
   const REFRESH_MS = 5 * 60 * 1000;
+  // Data files live on the main site; nfl.jerrykensinger.com loads them cross-origin.
+  const SITE = 'https://jerrykensinger.com/';
 
   const ABBR = {
     'Arizona Cardinals': 'ARI', 'Atlanta Falcons': 'ATL', 'Baltimore Ravens': 'BAL',
@@ -66,7 +68,7 @@
   }
 
   async function weeklyHistory() {
-    const res = await fetch('nfl-weekly-history.json?ts=' + Date.now(), {
+    const res = await fetch(SITE + 'nfl-weekly-history.json?ts=' + Date.now(), {
       cache: 'no-store',
       signal: AbortSignal.timeout(15000)
     });
@@ -398,7 +400,7 @@
   async function loadLegacyHistory() {
     if (!legacyPromise) {
       legacyPromise = Promise.all([2023, 2024, 2025].map(async year => {
-        const response = await fetch('nfl-legacy-' + year + '.json', {cache: 'no-store'});
+        const response = await fetch(SITE + 'nfl-legacy-' + year + '.json', {cache: 'no-store'});
         if (!response.ok) throw new Error('Historical season ' + year + ': ' + response.status);
         return response.json();
       })).catch(err => {legacyPromise = null; throw err;});
