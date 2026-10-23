@@ -167,6 +167,37 @@
     return td;
   }
 
+  // League split for a revealed game, counted only from that game's own pick
+  // cells. The feed blanks them until the game is revealed, so an unrevealed
+  // game never gets a row (and no split can leak).
+  function consensusRow(g, picks, span) {
+    const A = abbr(g.away), H = abbr(g.home);
+    const away = picks.filter(p => abbr(p) === A).length;
+    const home = picks.filter(p => abbr(p) === H).length;
+    const total = away + home;
+    if (!total) return null;
+    const hi = Math.max(away, home), lo = Math.min(away, home);
+    const summary = !lo ? `Unanimous — all ${total} on ${away ? A : H}`
+      : away === home ? `Dead even, ${away}–${home}`
+      : `League leans ${away > home ? A : H} ${hi}–${lo}`;
+    const label = el('div', null, 'consensus-label');
+    label.append(el('span', `${A} · ${away}`, 'away'), el('span', summary, 'consensus-summary'), el('span', `${home} · ${H}`, 'home'));
+    const bar = el('div', null, 'consensus-bar');
+    bar.setAttribute('role', 'img');
+    bar.setAttribute('aria-label', `League picks: ${away} on ${g.away}, ${home} on ${g.home}`);
+    [['away', away], ['home', home]].forEach(([side, n]) => {
+      if (!n) return;
+      const seg = el('span', null, 'consensus-seg ' + side);
+      seg.style.width = `${(n / total) * 100}%`;
+      bar.append(seg);
+    });
+    const wrap = el('div', null, 'consensus');
+    wrap.append(label, bar);
+    const td = el('td'); td.colSpan = span; td.append(wrap);
+    const tr = el('tr', null, 'consensus-row'); tr.append(td);
+    return tr;
+  }
+
   function renderGames(parsed, meta) {
     const body = $('games-body');
     const head = $('games-head');
@@ -207,6 +238,12 @@
         tr.append(playerCell(p, g[`${p}_pick`], g[`${p}_result`]));
       });
       body.append(tr);
+      const picks = players.map(p => String(g[`${p}_pick`] || '').trim()).filter(Boolean);
+      const meter = picks.length ? consensusRow(g, picks, 6 + players.length) : null;
+      if (meter) {
+        tr.classList.add('has-consensus');
+        body.append(meter);
+      }
     });
     const sub = $('games-sub');
     if (sub) {

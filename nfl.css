@@ -62,3 +62,19 @@
 #submissions tbody tr>td[colspan]{grid-column:1/-1;grid-row:auto}
 #submissions .status-pill{font-size:11px;padding:2px 8px}
 #submissions .league-note{padding-top:8px!important;margin:8px 0 0;font-size:12px}
+
+/* League consensus meter: a slim footnote under each revealed game. */
+.league tr.has-consensus>*{border-bottom:0}
+.league .consensus-row td{padding:0 18px 12px;white-space:normal}
+.league tbody tr.consensus-row:hover{background:none}
+.consensus{position:sticky;left:18px;width:min(360px,calc(100vw - 80px))}
+.consensus-label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:4px;font-size:12px;font-weight:700;white-space:nowrap}
+.consensus-label .consensus-summary{color:var(--muted);font-weight:600;overflow:hidden;text-overflow:ellipsis}
+.consensus-label .away{color:#1d5fd1}
+.consensus-label .home{color:#9a6200}
+.consensus-bar{display:flex;gap:2px;height:10px;border-radius:999px;overflow:hidden;background:var(--line)}
+.consensus-seg.away{background:#3b82f6}
+.consensus-seg.home{background:#f59e0b}
+html[data-theme="dark"] .consensus-label .away{color:#7cb6ff}
+html[data-theme="dark"] .consensus-label .home{color:#fbbf24}
+@media(max-width:700px){.league .consensus-row td{padding:0 12px 10px}.consensus{left:12px}}
