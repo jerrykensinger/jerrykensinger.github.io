@@ -573,7 +573,7 @@ const chat=[
  [['Jerry','Do we let it happen?'],['Michele','Everybody stay together!'],['Shanna','Is there more cake?']]
 ];
 function renderChapter(){const i=state.chapter,ch=DATA.chapters[i];if(!ch){show('endingView');return}
- $('chapterCounter').textContent='CHAPTER '+(i+1)+' OF 6';$('progressBar').setAttribute('aria-valuenow',String(Math.round((i+1)/6*100)));$('progressFill').style.width=((i+1)/6*100)+'%';$('chapterKicker').textContent=ch.kicker;$('chapterTitle').textContent=ch.title;$('chapterSubtitle').textContent=ch.sub;$('chapterImage').src='assets/'+ch.scene;
+ $('chapterCounter').textContent='CHAPTER '+(i+1)+' OF 6';$('progressBar').setAttribute('aria-valuenow',String(Math.round((i+1)/6*100)));$('progressFill').style.width=((i+1)/6*100)+'%';$('chapterKicker').textContent=ch.kicker;$('chapterTitle').textContent=ch.title;$('chapterSubtitle').textContent=ch.sub;
  $('chapterStory').innerHTML=format(ch.lead)+format(branchEcho(ch));
  const area=$('choiceArea');area.innerHTML='';const q=el('div','question');const label=el('p','eyebrow','THE STORY IS IN YOUR HANDS');q.append(label,el('h3','',routeTitle(i)+' — What happens next?'));
  ch.choices.forEach(([title,desc],idx)=>{const b=el('button','choice-btn'+(state.choices[i]===idx?' selected':''));b.type='button';b.setAttribute('aria-pressed',state.choices[i]===idx?'true':'false');b.innerHTML='<span class="letter">'+(idx===0?'A':'B')+'</span><span><strong>'+escape(title)+'</strong><small>'+escape(desc)+'</small></span>';b.addEventListener('click',()=>choose(idx));q.appendChild(b)});area.appendChild(q);
