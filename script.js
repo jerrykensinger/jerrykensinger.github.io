@@ -12,6 +12,15 @@
     nav.appendChild(leagueLink);
   }
 
+  if (nav && !nav.querySelector('a[href="explore.html"]')) {
+    const exploreLink = document.createElement('a');
+    exploreLink.href = 'explore.html';
+    exploreLink.className = 'nav-link';
+    exploreLink.textContent = 'Explore';
+    const blogLink = nav.querySelector('a[href="blog.html"]');
+    nav.insertBefore(exploreLink, blogLink || null);
+  }
+
   const savedTheme = localStorage.getItem('jk-theme');
   const preferredDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const initialTheme = savedTheme || (preferredDark ? 'dark' : 'light');
