@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jerry's Toolbox | Jerry Kensinger</title>
+  <meta name="description" content="Interactive calculators for subscriptions, wireless plans, storage and device upgrades.">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jerry's Toolbox | Jerry Kensinger">
+  <meta property="og:description" content="Interactive calculators for subscriptions, wireless plans, storage and device upgrades.">
+  <meta property="og:url" content="https://jerrykensinger.com/toolbox.html">
+  <meta property="og:image" content="https://jerrykensinger.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://jerrykensinger.com/toolbox.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EJ8CPRPSRB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EJ8CPRPSRB');
+</script>
+<link rel="stylesheet" href="explore.css">
+<script src="toolbox.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="index.html" aria-label="Jerry Kensinger home">
+        <span class="brand-mark">JK</span>
+        <span class="brand-name">Jerry Kensinger</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="index.html" class="nav-link">Home</a>
+<a href="about.html" class="nav-link">About</a>
+<a href="career.html" class="nav-link">Career</a>
+<a href="projects.html" class="nav-link">Projects</a>
+<a href="tech.html" class="nav-link">Tech</a>
+        <a href="explore.html" class="nav-link">Explore</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+<a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+        <span class="theme-icon" aria-hidden="true">◐</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main"><section class="page-hero section compact"><p class="eyebrow">Jerry's Toolbox</p><h1>Make the numbers work for you.</h1><p class="lead">Simple, interactive calculators for everyday technology decisions. Change the example values to see your own comparison. These tools calculate locally in your browser; the examples are illustrative, not live provider quotes.</p><p><a class="text-link" href="explore.html">← Back to Explore</a></p></section><section class="section compact"><div class="card-grid two hub-grid">
+<article class="plain-card calculator" id="subscriptions"><p class="eyebrow">Calculator</p><h2>Subscription savings</h2><p>Compare your current recurring expenses against a proposed monthly total.</p><form data-calc="subscriptions"><div class="calc-fields"><label for="sub-current">Current monthly total ($)<input id="sub-current" type="number" min="0" max="100000000" step="0.01" value="75" inputmode="decimal" required></label><label for="sub-new">Proposed monthly total ($)<input id="sub-new" type="number" min="0" max="100000000" step="0.01" value="45" inputmode="decimal" required></label></div><div class="calc-result" role="status" aria-live="polite">Enter amounts to compare.</div><small>Annual difference = 12 × (current − proposed).</small><button type="reset" class="button secondary">Reset example</button></form></article>
+<article class="plain-card calculator" id="wireless"><p class="eyebrow">Calculator</p><h2>Wireless plan comparison</h2><p>Compare two total monthly bills, including any expected recurring fees.</p><form data-calc="wireless"><div class="calc-fields"><label for="wire-current">Current monthly bill ($)<input id="wire-current" type="number" min="0" max="100000000" step="0.01" value="160" inputmode="decimal" required></label><label for="wire-new">New monthly bill ($)<input id="wire-new" type="number" min="0" max="100000000" step="0.01" value="100" inputmode="decimal" required></label><label for="wire-fee">One-time switching costs ($)<input id="wire-fee" type="number" min="0" max="100000000" step="0.01" value="0" inputmode="decimal" required></label></div><div class="calc-result" role="status" aria-live="polite">Enter amounts to compare.</div><small>First-year difference = 12 × monthly savings − switching costs.</small><button type="reset" class="button secondary">Reset example</button></form></article>
+<article class="plain-card calculator" id="storage"><p class="eyebrow">Calculator</p><h2>Cloud vs. local storage</h2><p>Estimate simple cost break-even between cloud service and local equipment.</p><form data-calc="storage"><div class="calc-fields"><label for="cloud-month">Cloud cost per month ($)<input id="cloud-month" type="number" min="0" max="100000000" step="0.01" value="15" inputmode="decimal" required></label><label for="local-upfront">Local hardware upfront ($)<input id="local-upfront" type="number" min="0" max="100000000" step="0.01" value="300" inputmode="decimal" required></label><label for="local-month">Local monthly running and backup costs ($)<input id="local-month" type="number" min="0" max="100000000" step="0.01" value="5" inputmode="decimal" required></label></div><div class="calc-result" role="status" aria-live="polite">Enter amounts to compare.</div><small>Break-even months = upfront cost ÷ monthly savings; reliability and backup needs also matter.</small><button type="reset" class="button secondary">Reset example</button></form></article>
+<article class="plain-card calculator" id="upgrade"><p class="eyebrow">Calculator</p><h2>Technology upgrade</h2><p>Compare keeping a device versus buying an upgrade based on estimated monthly savings.</p><form data-calc="upgrade"><div class="calc-fields"><label for="upgrade-cost">New device cost ($)<input id="upgrade-cost" type="number" min="0" max="100000000" step="0.01" value="500" inputmode="decimal" required></label><label for="upgrade-credit">Trade-in or resale credit ($)<input id="upgrade-credit" type="number" min="0" max="100000000" step="0.01" value="100" inputmode="decimal" required></label><label for="upgrade-save">Estimated monthly savings ($)<input id="upgrade-save" type="number" min="0" max="100000000" step="0.01" value="25" inputmode="decimal" required></label></div><div class="calc-result" role="status" aria-live="polite">Enter amounts to compare.</div><small>Payback = net upfront cost ÷ estimated monthly savings.</small><button type="reset" class="button secondary">Reset example</button></form></article>
+</div><p class="note-card">No personal data is needed. Values are not submitted by these calculators; the site retains its existing general website analytics. Taxes, promotional expiration, replacement costs and other factors may change the outcome.</p></section><section class="section compact"><div class="cta-panel"><div><p class="eyebrow">More research</p><h2>Compare technology costs beyond the calculator.</h2><p>YourTechSave is my separate consumer technology savings project.</p></div><a class="button primary" href="https://yourtechsave.com/">Visit YourTechSave ↗</a></div></section></main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <strong>Jerry Kensinger</strong>
+        <p>Technology • Strategic Accounts • AI &amp; Automation</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:jerry@jerrykensinger.com">Email</a>
+        <a href="https://www.linkedin.com/in/jerrykensinger/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="support.html">Support</a>
+        <a href="jerry-kensinger.vcf">Save Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-current-year></span> Jerry Kensinger</span>
+      <span>Built on GitHub Pages</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
