@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-17T10:34:02.777999Z",
+  "updated_at": "2026-11-24T12:15:01.601806Z",
   "weeks": [
     {
       "week": 1,
@@ -1975,6 +1975,183 @@
           "home": "Baltimore Ravens",
           "winner": "Los Angeles Chargers",
           "correct": 5,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "records": {
+        "IDC": {
+          "correct": 9,
+          "wrong": 4
+        },
+        "SICK": {
+          "correct": 9,
+          "wrong": 4
+        },
+        "SMS": {
+          "correct": 10,
+          "wrong": 3
+        },
+        "SLOTH": {
+          "correct": 9,
+          "wrong": 4
+        },
+        "CURLZ99": {
+          "correct": 8,
+          "wrong": 5
+        },
+        "DESKO": {
+          "correct": 10,
+          "wrong": 3
+        },
+        "LL": {
+          "correct": 11,
+          "wrong": 2
+        },
+        "PUGTERA": {
+          "correct": 9,
+          "wrong": 4
+        },
+        "GADGET": {
+          "correct": 8,
+          "wrong": 5
+        },
+        "ISPY": {
+          "correct": 8,
+          "wrong": 5
+        }
+      },
+      "games": [
+        {
+          "game": 1,
+          "away": "Indianapolis Colts",
+          "home": "Houston Texans",
+          "winner": "Houston Texans",
+          "correct": 9,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 2,
+          "away": "Miami Dolphins",
+          "home": "Buffalo Bills",
+          "winner": "Buffalo Bills",
+          "correct": 10,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 3,
+          "away": "New Orleans Saints",
+          "home": "Chicago Bears",
+          "winner": "Chicago Bears",
+          "correct": 10,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 4,
+          "away": "Tennessee Titans",
+          "home": "Dallas Cowboys",
+          "winner": "Dallas Cowboys",
+          "correct": 10,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 5,
+          "away": "Tampa Bay Buccaneers",
+          "home": "Detroit Lions",
+          "winner": "Detroit Lions",
+          "correct": 10,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 6,
+          "away": "Arizona Cardinals",
+          "home": "Kansas City Chiefs",
+          "winner": "Kansas City Chiefs",
+          "correct": 9,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 7,
+          "away": "Pittsburgh Steelers",
+          "home": "Philadelphia Eagles",
+          "winner": "Philadelphia Eagles",
+          "correct": 4,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 8,
+          "away": "Baltimore Ravens",
+          "home": "Carolina Panthers",
+          "winner": "Carolina Panthers",
+          "correct": 7,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 9,
+          "away": "New York Jets",
+          "home": "Los Angeles Chargers",
+          "winner": "New York Jets",
+          "correct": 3,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 10,
+          "away": "Las Vegas Raiders",
+          "home": "Denver Broncos",
+          "winner": "Denver Broncos",
+          "correct": 10,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 11,
+          "away": "Jacksonville Jaguars",
+          "home": "New York Giants",
+          "winner": "New York Giants",
+          "correct": 0,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 12,
+          "away": "Minnesota Vikings",
+          "home": "San Francisco 49ers",
+          "winner": "San Francisco 49ers",
+          "correct": 9,
+          "picked": 10,
+          "lone_correct": null,
+          "push": false
+        },
+        {
+          "game": 13,
+          "away": "Cincinnati Bengals",
+          "home": "Washington Commanders",
+          "winner": "Washington Commanders",
+          "correct": 0,
           "picked": 10,
           "lone_correct": null,
           "push": false
